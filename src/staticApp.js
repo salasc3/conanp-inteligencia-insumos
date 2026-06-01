@@ -11,7 +11,7 @@ const SOURCE_COLORS = {
   Naturalista: "#c1792d",
 };
 
-const TAB_IDS = new Set(["dashboard", "species", "review", "traceability", "synonyms", "gis", "draft", "pipeline", "sources"]);
+const TAB_IDS = new Set(["dashboard", "species", "review", "traceability", "synonyms", "gis", "automation", "visuals", "draft", "pipeline", "sources"]);
 const initialTab = new URLSearchParams(window.location.search).get("tab");
 
 const state = {
@@ -179,6 +179,8 @@ function render() {
     traceability: traceabilityView,
     synonyms: synonymsView,
     gis: gisView,
+    automation: automationView,
+    visuals: visualsView,
     draft: draftView,
     pipeline: pipelineView,
     sources: sourcesView,
@@ -272,6 +274,8 @@ function dashboardView() {
         ${moduleJump("Trazabilidad", "Evidencia por archivo, fila, fuente y decision humana.", "traceability")}
         ${moduleJump("Sinónimos", "Homologación taxonómica con reemplazos aprobables.", "synonyms")}
         ${moduleJump("Validación GIS", "Congruencia contra polígono ANP y distribución.", "gis")}
+        ${moduleJump("Automatización", "Reglas, colas y validación por lotes.", "automation")}
+        ${moduleJump("Visualización", "Cobertura, calidad y fuentes en una vista ejecutiva.", "visuals")}
         ${moduleJump("Borrador PM", "Texto técnico alimentado por datos trazables.", "draft")}
       </section>
       <section class="wide-panel">
@@ -508,6 +512,94 @@ function draftView() {
     </section>`;
 }
 
+function automationView() {
+  const anps = state.anp === "ALL" ? state.data.summaryByAnp : state.data.summaryByAnp.filter((row) => row.anp_code === state.anp);
+  const scoped = anps.reduce(
+    (acc, row) => ({
+      records: acc.records + Number(row.source_records || 0),
+      review: acc.review + Number(row.records_with_quality_flags || 0),
+      taxa: acc.taxa + Number(row.unique_taxa || 0),
+    }),
+    { records: 0, review: 0, taxa: 0 },
+  );
+  const jobs = automationJobs(scoped);
+
+  return `
+    <section class="module-screen">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">De tarea manual a flujo operativo</p>
+          <h2>Workbench de automatización</h2>
+        </div>
+        <button class="primary-action" data-ai-action="Simulación: se ejecuta un lote de normalización, validación y generación de salidas con bitácora auditable.">Ejecutar lote</button>
+      </div>
+      <div class="automation-hero">
+        ${metric("Registros que entran al flujo", number(scoped.records))}
+        ${metric("Taxa consolidados", number(scoped.taxa))}
+        ${metric("Casos enviados a revisión", number(scoped.review), "warn")}
+        ${metric("Tiempo técnico estimado", "3 sem → 1-2 días")}
+      </div>
+      <div class="automation-layout">
+        <div class="job-lane">
+          ${jobs.map(jobCard).join("")}
+        </div>
+        <aside class="rules-panel">
+          <span class="panel-kicker">Reglas automatizadas</span>
+          <h3>Validar antes de redactar</h3>
+          ${ruleRow("Duplicados", "Agrupar registros por ANP, taxón, coordenada, fecha y fuente.", "Activo")}
+          ${ruleRow("Taxonomía", "Consultar autoridad, preservar nombre original y pedir aprobación.", "Borrador")}
+          ${ruleRow("Geografía", "Cruzar ocurrencias contra polígono y distribución esperada.", "Borrador")}
+          ${ruleRow("Citas", "Bloquear salidas sin fuente, archivo o identificador trazable.", "Activo")}
+          <button class="inline-action" data-tab-link="review">Abrir cola humana</button>
+        </aside>
+      </div>
+    </section>`;
+}
+
+function visualsView() {
+  const anps = state.data.summaryByAnp;
+  const sources = aggregateSources();
+  const flags = state.data.qualityFlags.filter((flag) => Number(flag.affected_records || 0) > 0);
+
+  return `
+    <section class="module-screen">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Visualización para decidir</p>
+          <h2>Mapa operativo de datos</h2>
+        </div>
+        <button class="primary-action" data-ai-action="Simulación: se exportaría un paquete ejecutivo con gráficos, tablas y observaciones para dirección.">Exportar reporte</button>
+      </div>
+      <div class="visual-grid">
+        <article class="chart-panel span-2">
+          <span class="panel-kicker">Cobertura por ANP</span>
+          <h3>Registros, taxa y revisión pendiente</h3>
+          <div class="bar-matrix">
+            ${anps.map(anpChartRow).join("")}
+          </div>
+        </article>
+        <article class="chart-panel">
+          <span class="panel-kicker">Fuentes</span>
+          <h3>Composición integrada</h3>
+          <div class="donut-wrap">
+            <div class="donut-chart" style="${donutStyle(sources)}"></div>
+            <div class="donut-legend">${sources.map((row) => `<span><i style="background:${SOURCE_COLORS[row.source] || "#777"}"></i>${escapeHtml(row.source)} · ${number(row.records)}</span>`).join("")}</div>
+          </div>
+        </article>
+        <article class="chart-panel">
+          <span class="panel-kicker">Riesgo de calidad</span>
+          <h3>Principales alertas</h3>
+          <div class="risk-list">${flags.slice(0, 5).map(flagRiskRow).join("")}</div>
+        </article>
+      </div>
+      <div class="insight-strip">
+        ${insightCard("Dónde automatiza", "Normaliza fuentes, detecta duplicados, prepara validaciones y genera salidas iniciales.")}
+        ${insightCard("Dónde decide CONANP", "Autoridades taxonómicas, congruencia geográfica, criterios jurídicos y publicación final.")}
+        ${insightCard("Qué se visualiza", "Cobertura por ANP, fuentes dominantes, cuellos de botella y trazabilidad pendiente.")}
+      </div>
+    </section>`;
+}
+
 function pipelineView() {
   return `
     <section class="pipeline-screen">
@@ -704,6 +796,135 @@ function draftControl(label, value, tone) {
       <span>${escapeHtml(label)}</span>
       ${badge(value, tone)}
     </div>`;
+}
+
+function automationJobs(scoped) {
+  return [
+    {
+      step: "01",
+      title: "Ingesta de carpeta",
+      detail: "Detectar decretos, EPJ, SIG, economía/demografía y bases de biodiversidad.",
+      status: "Automatizado",
+      progress: 100,
+    },
+    {
+      step: "02",
+      title: "Normalización de esquemas",
+      detail: `${number(scoped.records)} registros traducidos a un modelo común sin perder fuente original.`,
+      status: "Automatizado",
+      progress: 100,
+    },
+    {
+      step: "03",
+      title: "Validación taxonómica",
+      detail: "Resolver sinónimos y conservar nombre histórico como evidencia.",
+      status: "Humano aprueba",
+      progress: 58,
+    },
+    {
+      step: "04",
+      title: "Validación GIS",
+      detail: "Cruzar coordenadas contra polígono y distribución biogeográfica.",
+      status: "Humano aprueba",
+      progress: 44,
+    },
+    {
+      step: "05",
+      title: "Salida técnica",
+      detail: "Generar matriz, cola de revisión, visualización y borrador inicial.",
+      status: "Listo para revisión",
+      progress: 72,
+    },
+  ];
+}
+
+function jobCard(job) {
+  return `
+    <article class="job-card">
+      <span class="step-index">${escapeHtml(job.step)}</span>
+      <div>
+        <h3>${escapeHtml(job.title)}</h3>
+        <p>${escapeHtml(job.detail)}</p>
+        ${progress(job.status, job.progress, 100)}
+      </div>
+      ${badge(job.status, job.status === "Automatizado" ? "ok" : "warn")}
+    </article>`;
+}
+
+function ruleRow(title, detailText, status) {
+  return `
+    <div class="rule-row">
+      <div>
+        <strong>${escapeHtml(title)}</strong>
+        <span>${escapeHtml(detailText)}</span>
+      </div>
+      ${badge(status, status === "Activo" ? "ok" : "warn")}
+    </div>`;
+}
+
+function aggregateSources() {
+  const totals = new Map();
+  state.data.summaryBySource.forEach((row) => {
+    totals.set(row.source_system, (totals.get(row.source_system) || 0) + Number(row.source_records || 0));
+  });
+  return [...totals.entries()]
+    .map(([source, records]) => ({ source, records }))
+    .sort((a, b) => b.records - a.records);
+}
+
+function anpChartRow(anp) {
+  const maxRecords = Math.max(...state.data.summaryByAnp.map((row) => Number(row.source_records || 0)));
+  const maxTaxa = Math.max(...state.data.summaryByAnp.map((row) => Number(row.unique_taxa || 0)));
+  return `
+    <div class="chart-row" style="--accent:${ANP_ACCENTS[anp.anp_code] || "#0b6b55"}">
+      <strong>${escapeHtml(anp.anp_code)}</strong>
+      <div>
+        ${miniBar("Registros", anp.source_records, maxRecords)}
+        ${miniBar("Taxa", anp.unique_taxa, maxTaxa)}
+        ${miniBar("Revisión", anp.records_with_quality_flags, anp.source_records, "warn")}
+      </div>
+    </div>`;
+}
+
+function miniBar(label, value, max, tone = "") {
+  const pct = percent(value, max);
+  return `
+    <div class="mini-bar ${tone}">
+      <span>${escapeHtml(label)}</span>
+      <div><i style="width:${pct}"></i></div>
+      <strong>${number(value)}</strong>
+    </div>`;
+}
+
+function donutStyle(sources) {
+  const total = sources.reduce((acc, row) => acc + row.records, 0) || 1;
+  let cursor = 0;
+  const segments = sources.map((row) => {
+    const start = cursor;
+    cursor += (row.records / total) * 100;
+    return `${SOURCE_COLORS[row.source] || "#777"} ${start}% ${cursor}%`;
+  });
+  return `background: conic-gradient(${segments.join(", ")});`;
+}
+
+function flagRiskRow(flag) {
+  const max = Math.max(...state.data.qualityFlags.map((row) => Number(row.affected_records || 0)));
+  return `
+    <div class="risk-row">
+      <div>
+        <strong>${cleanFlag(flag.quality_flag)}</strong>
+        <span>${escapeHtml(flag.affected_anps || "sin ANP")}</span>
+      </div>
+      ${miniBar("Casos", flag.affected_records, max, "warn")}
+    </div>`;
+}
+
+function insightCard(title, detailText) {
+  return `
+    <article class="insight-card">
+      <span class="panel-kicker">${escapeHtml(title)}</span>
+      <p>${escapeHtml(detailText)}</p>
+    </article>`;
 }
 
 function pipelineStep(step, index) {

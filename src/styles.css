@@ -956,6 +956,199 @@ td:first-child {
   font-weight: 900;
 }
 
+.automation-hero {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--line);
+  margin-bottom: 14px;
+}
+
+.automation-layout,
+.visual-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 0.42fr);
+  gap: 14px;
+}
+
+.job-lane {
+  display: grid;
+  gap: 10px;
+}
+
+.job-card,
+.rules-panel,
+.chart-panel,
+.insight-card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fffdf7;
+  padding: 16px;
+}
+
+.job-card {
+  display: grid;
+  grid-template-columns: 58px minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: center;
+}
+
+.job-card p {
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+.rules-panel {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+}
+
+.rules-panel h3 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.7rem;
+}
+
+.rule-row,
+.chart-row,
+.risk-row {
+  display: grid;
+  gap: 10px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 12px;
+}
+
+.rule-row {
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+}
+
+.rule-row span,
+.risk-row span {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.visual-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.chart-panel.span-2 {
+  grid-column: span 2;
+}
+
+.chart-panel h3 {
+  margin: 6px 0 16px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.55rem;
+}
+
+.bar-matrix,
+.risk-list {
+  display: grid;
+  gap: 12px;
+}
+
+.chart-row {
+  grid-template-columns: 86px minmax(0, 1fr);
+  align-items: center;
+}
+
+.chart-row > strong {
+  color: var(--accent);
+}
+
+.mini-bar {
+  display: grid;
+  grid-template-columns: 76px minmax(90px, 1fr) 74px;
+  gap: 10px;
+  align-items: center;
+  margin: 6px 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.mini-bar div {
+  height: 9px;
+  border-radius: 999px;
+  background: #e5dece;
+  overflow: hidden;
+}
+
+.mini-bar i {
+  display: block;
+  height: 100%;
+  background: var(--accent, var(--forest));
+}
+
+.mini-bar.warn i {
+  background: var(--rust);
+}
+
+.mini-bar strong {
+  text-align: right;
+  color: var(--ink);
+}
+
+.donut-wrap {
+  display: grid;
+  justify-items: center;
+  gap: 16px;
+}
+
+.donut-chart {
+  width: min(220px, 62vw);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 18px solid #fffdf7;
+  box-shadow: inset 0 0 0 1px var(--line), 0 12px 28px rgba(38, 48, 44, 0.12);
+}
+
+.donut-legend {
+  display: grid;
+  gap: 8px;
+  width: 100%;
+}
+
+.donut-legend span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+}
+
+.donut-legend i {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+}
+
+.risk-row {
+  grid-template-columns: 1fr;
+}
+
+.risk-row .mini-bar {
+  grid-template-columns: 50px minmax(90px, 1fr) 86px;
+}
+
+.insight-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.insight-card p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
 .pipeline {
   display: grid;
   gap: 10px;
@@ -1149,7 +1342,10 @@ td:first-child {
   .module-strip,
   .evidence-grid,
   .synonym-board,
-  .review-grid.compact {
+  .review-grid.compact,
+  .automation-hero,
+  .visual-grid,
+  .insight-strip {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -1161,8 +1357,13 @@ td:first-child {
   .trace-layout,
   .gis-layout,
   .draft-layout,
-  .script-panel {
+  .script-panel,
+  .automation-layout {
     grid-template-columns: 1fr;
+  }
+
+  .chart-panel.span-2 {
+    grid-column: span 2;
   }
 }
 
@@ -1216,8 +1417,15 @@ td:first-child {
   .evidence-grid,
   .synonym-board,
   .review-grid.compact,
-  .validation-panel {
+  .validation-panel,
+  .automation-hero,
+  .visual-grid,
+  .insight-strip {
     grid-template-columns: 1fr;
+  }
+
+  .chart-panel.span-2 {
+    grid-column: span 1;
   }
 
   .rail-button {
@@ -1236,8 +1444,15 @@ td:first-child {
   }
 
   .trace-step,
-  .synonym-flow {
+  .synonym-flow,
+  .job-card,
+  .rule-row,
+  .chart-row {
     grid-template-columns: 1fr;
+  }
+
+  .mini-bar {
+    grid-template-columns: 68px minmax(80px, 1fr) 64px;
   }
 
   .trace-step > span:first-child {
