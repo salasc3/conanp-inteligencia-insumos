@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CONANP Inteligencia de Insumos</title>
+    <link rel="stylesheet" href="./src/styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <aside class="rail">
+        <div class="brand-mark" aria-label="CONANP">C</div>
+        <nav aria-label="Navegación principal">
+          <button class="rail-button active" data-tab="dashboard" title="Tablero">T</button>
+          <button class="rail-button" data-tab="species" title="Especies">E</button>
+          <button class="rail-button" data-tab="review" title="Revisión">R</button>
+          <button class="rail-button" data-tab="pipeline" title="Flujo IA">IA</button>
+          <button class="rail-button" data-tab="sources" title="Insumos">I</button>
+        </nav>
+      </aside>
+      <section class="workspace">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Piloto operativo / biodiversidad y trazabilidad</p>
+            <h1>CONANP Inteligencia de Insumos</h1>
+          </div>
+          <div class="topbar-actions">
+            <div class="connection-pill" id="connection-pill">Cargando datos...</div>
+            <select id="anp-select" aria-label="ANP"></select>
+            <button class="primary-action" id="pipeline-button">Ver flujo IA</button>
+          </div>
+        </header>
+        <div id="app">
+          <div class="loading">
+            <div>
+              <div class="loader-ring"></div>
+              <p>Preparando el tablero CONANP...</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <aside class="drawer" id="drawer" hidden></aside>
+    <div class="toast" id="toast" hidden></div>
+    <script src="./config.js"></script>
+    <script src="./src/staticApp.js"></script>
+  </body>
+</html>
