@@ -74,7 +74,7 @@ button {
 
 .rail nav {
   display: grid;
-  gap: 10px;
+  gap: 8px;
 }
 
 .rail-button {
@@ -126,9 +126,12 @@ p {
 
 h1,
 h2,
-h3,
-.latin {
+h3 {
   overflow-wrap: anywhere;
+}
+
+.latin {
+  overflow-wrap: break-word;
 }
 
 h1 {
@@ -223,7 +226,8 @@ select {
 .table-screen,
 .review-screen,
 .pipeline-screen,
-.sources-screen {
+.sources-screen,
+.module-screen {
   border: 1px solid var(--line);
   border-radius: 8px;
   background: rgba(255, 250, 240, 0.9);
@@ -385,7 +389,8 @@ select {
 .table-screen,
 .review-screen,
 .pipeline-screen,
-.sources-screen {
+.sources-screen,
+.module-screen {
   padding: 18px;
 }
 
@@ -592,6 +597,365 @@ td:first-child {
   color: var(--charcoal);
 }
 
+.module-strip {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.module-jump,
+.inline-action {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 250, 240, 0.92);
+  color: var(--ink);
+}
+
+.module-jump {
+  min-height: 112px;
+  display: grid;
+  align-content: space-between;
+  text-align: left;
+  padding: 14px;
+}
+
+.module-jump span,
+.panel-kicker {
+  color: var(--forest);
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.module-jump strong {
+  font-size: 0.96rem;
+  line-height: 1.22;
+}
+
+.module-jump:hover,
+.inline-action:hover {
+  border-color: #a99b7e;
+  background: #fffdf7;
+}
+
+.inline-action {
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  padding: 0 12px;
+  font-weight: 850;
+}
+
+.trace-layout,
+.gis-layout,
+.draft-layout {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.72fr) minmax(0, 1.28fr);
+  gap: 14px;
+}
+
+.specimen-panel,
+.script-panel,
+.map-panel,
+.draft-page,
+.draft-controls,
+.validation-panel,
+.evidence-card,
+.synonym-card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fffdf7;
+  padding: 16px;
+}
+
+.specimen-panel {
+  display: grid;
+  gap: 16px;
+  align-content: start;
+}
+
+.specimen-panel h3 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 2rem;
+}
+
+.specimen-panel dl,
+.synonym-card dl {
+  display: grid;
+  gap: 10px;
+}
+
+.specimen-panel dl div,
+.synonym-card dl div {
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 8px;
+}
+
+.specimen-panel dt,
+.synonym-card dt {
+  color: var(--muted);
+  font-size: 0.74rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.specimen-panel dd,
+.synonym-card dd {
+  margin: 3px 0 0;
+}
+
+.trace-timeline {
+  display: grid;
+  gap: 10px;
+}
+
+.trace-step {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--forest);
+  border-radius: 8px;
+  background: #fffdf7;
+  padding: 14px;
+}
+
+.trace-step > span:first-child {
+  font-family: Georgia, "Times New Roman", serif;
+  color: var(--muted);
+  font-size: 1.6rem;
+}
+
+.trace-step p,
+.evidence-card p,
+.draft-page p,
+.draft-page li {
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.evidence-grid,
+.synonym-board {
+  display: grid;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.evidence-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.synonym-board {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.evidence-card > div:first-child {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.evidence-card h3 {
+  margin: 14px 0 8px;
+  font-size: 1rem;
+}
+
+.synonym-card {
+  display: grid;
+  gap: 14px;
+}
+
+.synonym-flow {
+  display: grid;
+  grid-template-columns: 1fr 24px 1fr;
+  gap: 10px;
+  align-items: center;
+}
+
+.synonym-flow span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.74rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.synonym-flow strong {
+  display: block;
+  margin-top: 5px;
+}
+
+.synonym-flow b {
+  color: var(--forest);
+}
+
+.script-panel {
+  display: grid;
+  grid-template-columns: minmax(240px, 0.5fr) minmax(0, 1fr);
+  gap: 14px;
+  align-items: start;
+  margin-top: 14px;
+}
+
+.script-panel pre {
+  margin: 0;
+  overflow: auto;
+  border-radius: 8px;
+  background: #1d2925;
+  color: #f7eddc;
+  padding: 14px;
+  line-height: 1.45;
+}
+
+.map-panel {
+  min-height: 460px;
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, rgba(36, 94, 145, 0.08) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(36, 94, 145, 0.08) 1px, transparent 1px),
+    #eef4ed;
+  background-size: 34px 34px;
+}
+
+.anp-shape {
+  position: absolute;
+  inset: 68px 80px 92px 72px;
+  border: 3px solid var(--accent);
+  border-radius: 46% 54% 48% 52% / 58% 42% 57% 43%;
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+}
+
+.map-point {
+  position: absolute;
+  width: 13px;
+  height: 13px;
+  border: 2px solid #fffaf0;
+  border-radius: 50%;
+  background: var(--forest);
+  box-shadow: 0 6px 16px rgba(22, 32, 29, 0.28);
+}
+
+.map-point:nth-of-type(odd) {
+  background: var(--rust);
+}
+
+.p1 { left: 34%; top: 32%; }
+.p2 { left: 48%; top: 42%; }
+.p3 { left: 57%; top: 26%; }
+.p4 { left: 68%; top: 56%; }
+.p5 { left: 24%; top: 62%; }
+.p6 { left: 76%; top: 31%; }
+.p7 { left: 43%; top: 70%; }
+
+.map-legend {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 250, 240, 0.9);
+  padding: 10px;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.map-legend i {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+.map-legend .inside { background: var(--forest); }
+.map-legend .review { background: var(--rust); }
+
+.validation-panel {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  padding: 0;
+  overflow: hidden;
+  background: var(--line);
+}
+
+.validation-panel .metric {
+  min-height: 150px;
+}
+
+.review-grid.compact {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: 14px;
+}
+
+.coord-pair {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.coord-pair span {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 3px 8px;
+}
+
+.draft-layout {
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 0.34fr);
+}
+
+.draft-page {
+  min-height: 560px;
+  padding: 36px;
+}
+
+.draft-page h3 {
+  margin: 10px 0 18px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.8rem, 3vw, 3rem);
+}
+
+.draft-page h4 {
+  margin: 28px 0 12px;
+}
+
+.draft-page ul {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding-left: 20px;
+}
+
+.draft-controls {
+  display: grid;
+  gap: 10px;
+  align-content: start;
+}
+
+.draft-control {
+  display: grid;
+  gap: 8px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 12px;
+}
+
+.draft-control > span {
+  color: var(--muted);
+  font-weight: 900;
+}
+
 .pipeline {
   display: grid;
   gap: 10px;
@@ -781,13 +1145,24 @@ td:first-child {
   .anp-grid,
   .review-grid,
   .inventory-grid,
-  .future-row {
+  .future-row,
+  .module-strip,
+  .evidence-grid,
+  .synonym-board,
+  .review-grid.compact {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .metric-strip {
     border-left: 0;
     border-top: 1px solid var(--line);
+  }
+
+  .trace-layout,
+  .gis-layout,
+  .draft-layout,
+  .script-panel {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -800,8 +1175,9 @@ td:first-child {
     position: static;
     height: auto;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-start;
     gap: 12px;
+    overflow-x: auto;
   }
 
   .rail nav {
@@ -835,7 +1211,12 @@ td:first-child {
   .anp-grid,
   .review-grid,
   .inventory-grid,
-  .future-row {
+  .future-row,
+  .module-strip,
+  .evidence-grid,
+  .synonym-board,
+  .review-grid.compact,
+  .validation-panel {
     grid-template-columns: 1fr;
   }
 
@@ -852,5 +1233,22 @@ td:first-child {
     max-width: 12.5ch;
     font-size: 1.72rem;
     line-height: 1.08;
+  }
+
+  .trace-step,
+  .synonym-flow {
+    grid-template-columns: 1fr;
+  }
+
+  .trace-step > span:first-child {
+    font-size: 1.2rem;
+  }
+
+  .map-panel {
+    min-height: 360px;
+  }
+
+  .draft-page {
+    padding: 22px;
   }
 }

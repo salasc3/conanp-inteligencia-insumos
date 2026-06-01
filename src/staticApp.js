@@ -11,10 +11,13 @@ const SOURCE_COLORS = {
   Naturalista: "#c1792d",
 };
 
+const TAB_IDS = new Set(["dashboard", "species", "review", "traceability", "synonyms", "gis", "draft", "pipeline", "sources"]);
+const initialTab = new URLSearchParams(window.location.search).get("tab");
+
 const state = {
   data: null,
   connection: "Cargando datos...",
-  tab: "dashboard",
+  tab: TAB_IDS.has(initialTab) ? initialTab : "dashboard",
   anp: "ALL",
   query: "",
   source: "ALL",
@@ -167,16 +170,27 @@ function hydrateControls() {
 }
 
 function render() {
+  syncRail();
   pipelineButton.textContent = state.tab === "pipeline" ? "Abrir revisión" : "Ver flujo IA";
   const views = {
     dashboard: dashboardView,
     species: speciesView,
     review: reviewView,
+    traceability: traceabilityView,
+    synonyms: synonymsView,
+    gis: gisView,
+    draft: draftView,
     pipeline: pipelineView,
     sources: sourcesView,
   };
   app.innerHTML = views[state.tab]();
   bindViewEvents();
+}
+
+function syncRail() {
+  document.querySelectorAll(".rail-button").forEach((button) => {
+    button.classList.toggle("active", button.dataset.tab === state.tab);
+  });
 }
 
 function bindViewEvents() {
@@ -253,6 +267,12 @@ function dashboardView() {
       </section>
       <section class="anp-grid">
         ${state.data.summaryByAnp.map(anpTile).join("")}
+      </section>
+      <section class="module-strip">
+        ${moduleJump("Trazabilidad", "Evidencia por archivo, fila, fuente y decision humana.", "traceability")}
+        ${moduleJump("Sinónimos", "Homologación taxonómica con reemplazos aprobables.", "synonyms")}
+        ${moduleJump("Validación GIS", "Congruencia contra polígono ANP y distribución.", "gis")}
+        ${moduleJump("Borrador PM", "Texto técnico alimentado por datos trazables.", "draft")}
       </section>
       <section class="wide-panel">
         ${panelTitle("Fuentes integradas", "Explorar insumos", "sources")}
@@ -331,6 +351,163 @@ function reviewView() {
     </section>`;
 }
 
+function traceabilityView() {
+  const species = representativeSpecies();
+  const anp = anpSummary(species.anp_code);
+  const sources = String(species.source_systems || "SNIB; GBIF; Naturalista").split("; ").filter(Boolean);
+  const sourceRows = state.data.summaryBySource
+    .filter((row) => row.anp_code === species.anp_code && sources.includes(row.source_system))
+    .slice(0, 4);
+  const steps = [
+    ["01", "Insumo recibido", "Archivo original identificado dentro de la carpeta enviada por CONANP.", "Completo"],
+    ["02", "Registro normalizado", "Columnas heterogéneas traducidas a un modelo común de ocurrencias.", "Completo"],
+    ["03", "Taxón consolidado", "Registros agrupados por ANP, nombre aceptado, fuente y evidencia disponible.", "Completo"],
+    ["04", "Cita preservada", "La ruta de archivo, fuente, identificador y cita quedan disponibles para auditoría.", "Completo"],
+    ["05", "Decisión especialista", "Pendiente de validación taxonómica y geográfica por el área técnica.", "Pendiente"],
+  ];
+
+  return `
+    <section class="module-screen">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Evidencia auditable</p>
+          <h2>Línea de trazabilidad</h2>
+        </div>
+        ${badge(species.anp_code, species.anp_code)}
+      </div>
+      <div class="trace-layout">
+        <article class="specimen-panel">
+          <span class="panel-kicker">Taxón de demostración</span>
+          <h3 class="latin">${escapeHtml(displayTaxonName(species.accepted_scientific_name))}</h3>
+          <dl>
+            ${detail("ANP", anp ? anp.anp_name : species.anp_name)}
+            ${detail("Familia", species.family || "Sin dato")}
+            ${detail("Fuentes", species.source_systems || "Sin dato")}
+            ${detail("Registros fuente", number(species.source_record_count))}
+            ${detail("Ocurrencias deduplicadas", number(species.deduped_occurrence_count))}
+          </dl>
+          <button class="inline-action" data-tab-link="species">Abrir explorador</button>
+        </article>
+        <div class="trace-timeline">
+          ${steps.map(traceStep).join("")}
+        </div>
+      </div>
+      <div class="evidence-grid">
+        ${sourceRows.map((row) => evidenceCard(row, species)).join("")}
+      </div>
+    </section>`;
+}
+
+function synonymsView() {
+  const species = presentableSpeciesRows().slice(0, 4);
+  const cases = species.map((row, index) => ({
+    accepted: row.accepted_scientific_name || "Taxón pendiente",
+    oldName: synonymVariant(row.accepted_scientific_name, index),
+    authority: index % 2 === 0 ? "GBIF Backbone / revisión especialista" : "WoRMS / criterio CONABIO",
+    affected: Math.max(2, Math.round(Number(row.source_record_count || 4) / 18)),
+    status: index === 0 ? "Listo para aprobar" : index === 1 ? "Conflicto de autoridad" : "Pendiente especialista",
+  }));
+
+  return `
+    <section class="module-screen">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Homologación taxonómica</p>
+          <h2>Resolución de sinónimos</h2>
+        </div>
+        <button class="primary-action" data-ai-action="Simulación: se consultan autoridades taxonómicas y se genera un script de reemplazos reversible.">Detectar sinónimos</button>
+      </div>
+      <div class="synonym-board">
+        ${cases.map(synonymCard).join("")}
+      </div>
+      <article class="script-panel">
+        <div>
+          <span class="panel-kicker">Script reversible propuesto</span>
+          <h3>Homologar nomenclatura sin borrar la versión original</h3>
+        </div>
+        <pre><code>${escapeHtml(`for each mention where scientific_name in synonym_set:
+  keep original_name
+  set accepted_name = authority.accepted_name
+  attach authority_source
+  mark status = "requires_specialist_approval"`)}</code></pre>
+      </article>
+    </section>`;
+}
+
+function gisView() {
+  const anp = state.anp === "ALL"
+    ? [...state.data.summaryByAnp].sort((a, b) => Number(b.records_with_quality_flags || 0) - Number(a.records_with_quality_flags || 0))[0]
+    : anpSummary(state.anp);
+  const scopedRecords = state.data.reviewQueue.filter((row) => row.anp_code === anp.anp_code);
+  const records = (scopedRecords.length >= 4 ? scopedRecords : state.data.reviewQueue).slice(0, 7);
+  const inside = Math.max(0, Number(anp.records_with_coordinates || 0) - Number(anp.records_with_quality_flags || 0));
+  const review = Number(anp.records_with_quality_flags || 0);
+
+  return `
+    <section class="module-screen">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Validación espacial</p>
+          <h2>Congruencia GIS y biogeográfica</h2>
+        </div>
+        ${badge(anp.anp_code, anp.anp_code)}
+      </div>
+      <div class="gis-layout">
+        <article class="map-panel" style="--accent:${ANP_ACCENTS[anp.anp_code] || "#0b6b55"}">
+          <div class="anp-shape"></div>
+          ${records.map((record, index) => `<span class="map-point p${index + 1}" title="${escapeHtml(record.source_system || "")}"></span>`).join("")}
+          <div class="map-legend">
+            <span><i class="inside"></i> Dentro / congruente</span>
+            <span><i class="review"></i> Revisar</span>
+          </div>
+        </article>
+        <div class="validation-panel">
+          ${metric("Con coordenadas", number(anp.records_with_coordinates))}
+          ${metric("Congruencia inicial", number(inside))}
+          ${metric("Requieren revisión", number(review), "warn")}
+          ${metric("Especialista asignado", "Alejandro Rendón")}
+        </div>
+      </div>
+      <div class="review-grid compact">${records.map(gisCaseCard).join("")}</div>
+    </section>`;
+}
+
+function draftView() {
+  const anp = state.anp === "ALL" ? state.data.summaryByAnp[2] : anpSummary(state.anp);
+  const species = presentableSpeciesRows(anp.anp_code).slice(0, 6);
+
+  return `
+    <section class="module-screen">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Programa de Manejo</p>
+          <h2>Vista previa de borrador asistido</h2>
+        </div>
+        <button class="primary-action" data-ai-action="Simulación: el borrador se genera con citas enlazadas y queda bloqueado hasta revisión técnica.">Generar sección</button>
+      </div>
+      <div class="draft-layout">
+        <article class="draft-page">
+          <span class="panel-kicker">Borrador técnico / biodiversidad</span>
+          <h3>${escapeHtml(anp.anp_name)}</h3>
+          <p>La base consolidada integra ${number(anp.source_records)} registros de biodiversidad y ${number(anp.unique_taxa)} taxa únicos para apoyar la elaboración del capítulo de biodiversidad del Programa de Manejo.</p>
+          <p>La información proviene de fuentes normalizadas como ${escapeHtml(sourceListForAnp(anp.anp_code))}. Cada afirmación conserva trazabilidad hacia archivo, fila, fuente y cita disponible.</p>
+          <h4>Taxa de referencia para revisión</h4>
+          <ul>
+            ${species.map((row) => `<li><span class="latin">${escapeHtml(displayTaxonName(row.accepted_scientific_name))}</span> · ${escapeHtml(row.family || "Sin familia")} · ${number(row.source_record_count)} registros</li>`).join("")}
+          </ul>
+        </article>
+        <aside class="draft-controls">
+          ${draftControl("Citas enlazadas", "Activo", "ok")}
+          ${draftControl("Nomenclatura", "Pendiente especialista", "warn")}
+          ${draftControl("Distribución geográfica", "Pendiente GIS", "warn")}
+          ${draftControl("Jurídico", "No iniciado", "default")}
+          <button class="inline-action" data-tab-link="traceability">Ver trazabilidad</button>
+          <button class="inline-action" data-tab-link="gis">Validar GIS</button>
+        </aside>
+      </div>
+    </section>`;
+}
+
 function pipelineView() {
   return `
     <section class="pipeline-screen">
@@ -356,6 +533,28 @@ function sourcesView() {
       </div>
       <div class="inventory-grid">${state.data.sourceInventory.map(inventoryCard).join("")}</div>
     </section>`;
+}
+
+function speciesForCurrentAnp() {
+  const rows = state.data.speciesSample.filter((row) => state.anp === "ALL" || row.anp_code === state.anp);
+  return rows.length ? rows : state.data.speciesSample;
+}
+
+function presentableSpeciesRows(anpCode = null) {
+  const rows = state.data.speciesSample.filter((row) => {
+    const inAnp = anpCode ? row.anp_code === anpCode : state.anp === "ALL" || row.anp_code === state.anp;
+    const name = displayTaxonName(row.accepted_scientific_name);
+    return inAnp && name.split(" ").length >= 2 && row.family;
+  });
+  return rows.length ? rows : speciesForCurrentAnp();
+}
+
+function representativeSpecies() {
+  return presentableSpeciesRows().find((row) => Number(row.source_record_count || 0) > 20) || speciesForCurrentAnp()[0];
+}
+
+function anpSummary(anpCode) {
+  return state.data.summaryByAnp.find((row) => row.anp_code === anpCode);
 }
 
 function filteredSpecies() {
@@ -396,7 +595,7 @@ function speciesRow(row) {
   return `
     <tr data-species="${row.species_uid}">
       <td>
-        <strong class="latin">${escapeHtml(row.accepted_scientific_name || "Taxón pendiente")}</strong>
+        <strong class="latin">${escapeHtml(displayTaxonName(row.accepted_scientific_name))}</strong>
         <span>${escapeHtml(row.kingdom || "sin reino")} / ${escapeHtml(row.class_name || "sin clase")}</span>
       </td>
       <td>${badge(row.anp_code, row.anp_code)}</td>
@@ -415,7 +614,7 @@ function reviewCard(record) {
         ${badge(record.anp_code, record.anp_code)}
         <span>${escapeHtml(record.source_system || "")}</span>
       </div>
-      <h3>${escapeHtml(record.accepted_scientific_name || record.scientific_name_raw || "Taxón no resuelto")}</h3>
+      <h3>${escapeHtml(displayTaxonName(record.accepted_scientific_name || record.scientific_name_raw || "Taxón no resuelto"))}</h3>
       <p>${escapeHtml(record.locality || "Sin localidad textual")} · ${escapeHtml(record.event_year || "sin año")}</p>
       <div class="flag-cloud">${flags.map((flag) => `<span>${cleanFlag(flag)}</span>`).join("")}</div>
       <div class="review-actions">
@@ -424,6 +623,87 @@ function reviewCard(record) {
         <button data-ai-action="Derivación simulada. El caso quedaría asignado a un especialista taxonómico o regional.">Enviar a especialista</button>
       </div>
     </article>`;
+}
+
+function moduleJump(title, detailText, tab) {
+  return `
+    <button class="module-jump" data-tab-link="${tab}">
+      <span>${escapeHtml(title)}</span>
+      <strong>${escapeHtml(detailText)}</strong>
+    </button>`;
+}
+
+function traceStep(step) {
+  return `
+    <article class="trace-step">
+      <span>${escapeHtml(step[0])}</span>
+      <div>
+        <h3>${escapeHtml(step[1])}</h3>
+        <p>${escapeHtml(step[2])}</p>
+      </div>
+      ${badge(step[3], step[3] === "Completo" ? "ok" : "warn")}
+    </article>`;
+}
+
+function evidenceCard(row, species) {
+  return `
+    <article class="evidence-card">
+      <div>
+        ${badge(row.source_system, row.source_system)}
+        <span>${number(row.source_records)} registros fuente</span>
+      </div>
+      <h3>${escapeHtml(shortPath(row.source_file))}</h3>
+      <p>Soporta <span class="latin">${escapeHtml(displayTaxonName(species.accepted_scientific_name))}</span> dentro del índice consolidado. En producción abriría archivo, fila, cita y registro original.</p>
+    </article>`;
+}
+
+function synonymCard(item) {
+  return `
+    <article class="synonym-card">
+      <div class="synonym-flow">
+        <div>
+          <span>Nombre encontrado</span>
+          <strong class="latin">${escapeHtml(item.oldName)}</strong>
+        </div>
+        <b>→</b>
+        <div>
+          <span>Nombre aceptado</span>
+          <strong class="latin">${escapeHtml(displayTaxonName(item.accepted))}</strong>
+        </div>
+      </div>
+      <dl>
+        ${detail("Autoridad", item.authority)}
+        ${detail("Menciones afectadas", number(item.affected))}
+        ${detail("Estado", item.status)}
+      </dl>
+      <button class="inline-action" data-ai-action="Simulación: reemplazo preparado, conservando nombre original y fuente para auditoría.">Preparar reemplazo</button>
+    </article>`;
+}
+
+function gisCaseCard(record) {
+  const flags = String(record.quality_flags || "").split("; ").filter(Boolean).slice(0, 2);
+  return `
+    <article class="review-card">
+      <div class="review-topline">
+        ${badge(record.source_system || "Fuente", record.anp_code)}
+        <span>${escapeHtml(record.event_year || "sin año")}</span>
+      </div>
+      <h3>${escapeHtml(displayTaxonName(record.accepted_scientific_name || record.scientific_name_raw || "Taxón por resolver"))}</h3>
+      <p>${escapeHtml(record.locality || "Sin localidad textual")}</p>
+      <div class="coord-pair">
+        <span>${escapeHtml(record.latitude || "s/lat")}</span>
+        <span>${escapeHtml(record.longitude || "s/lon")}</span>
+      </div>
+      <div class="flag-cloud">${flags.map((flag) => `<span>${cleanFlag(flag)}</span>`).join("")}</div>
+    </article>`;
+}
+
+function draftControl(label, value, tone) {
+  return `
+    <div class="draft-control">
+      <span>${escapeHtml(label)}</span>
+      ${badge(value, tone)}
+    </div>`;
 }
 
 function pipelineStep(step, index) {
@@ -475,12 +755,35 @@ function sourceRow(row) {
     </div>`;
 }
 
+function synonymVariant(name = "", index = 0) {
+  const cleaned = displayTaxonName(name);
+  const parts = String(cleaned || "Taxon pendiente").split(" ").filter(Boolean);
+  if (parts.length < 2) return `${name || "Taxon pendiente"} sensu lato`;
+  const suffixes = ["auct.", "syn. nov.", "var. regional", "sensu CONABIO"];
+  return `${parts[0]} ${parts[1]} ${suffixes[index % suffixes.length]}`;
+}
+
+function sourceListForAnp(anpCode) {
+  const sources = [...new Set(state.data.summaryBySource
+    .filter((row) => row.anp_code === anpCode)
+    .map((row) => row.source_system))];
+  return sources.join(", ");
+}
+
+function displayTaxonName(name = "") {
+  const parts = String(name || "Taxón pendiente").trim().split(/\s+/).filter(Boolean);
+  if (parts.length >= 3 && parts[0].toLowerCase() === parts[1].toLowerCase()) {
+    return parts.slice(1).join(" ");
+  }
+  return parts.join(" ") || "Taxón pendiente";
+}
+
 function showDrawer(species) {
   drawer.hidden = false;
   drawer.innerHTML = `
     <button class="drawer-close" id="drawer-close">×</button>
     ${badge(species.anp_code, species.anp_code)}
-    <h2 class="latin">${escapeHtml(species.accepted_scientific_name || "Taxón pendiente")}</h2>
+    <h2 class="latin">${escapeHtml(displayTaxonName(species.accepted_scientific_name))}</h2>
     <dl>
       ${detail("Familia", species.family || "Sin dato")}
       ${detail("Fuentes", species.source_systems || "Sin dato")}
