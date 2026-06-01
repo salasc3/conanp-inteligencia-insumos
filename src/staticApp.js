@@ -323,7 +323,6 @@ function reviewView() {
     <section class="review-screen">
       <div class="section-head">
         <div>
-          <p class="eyebrow">Trabajo humano donde sí aporta</p>
           <h2>Cola de revisión asistida</h2>
         </div>
         <div class="queue-count">${number(records.length)} casos visibles</div>
