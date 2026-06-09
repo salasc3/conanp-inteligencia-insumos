@@ -30,7 +30,7 @@ body {
     var(--paper);
   background-size: 38px 38px;
   font-family: "Avenir Next", "IBM Plex Sans", "Segoe UI", sans-serif;
-  font-size: 15px;
+  font-size: 14px;
 }
 
 button,
@@ -71,8 +71,8 @@ button {
   border-radius: 6px;
   background: rgba(247, 237, 220, 0.08);
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 1.3rem;
-  font-weight: 900;
+  font-size: 1.12rem;
+  font-weight: 800;
 }
 
 .rail nav {
@@ -115,8 +115,8 @@ button {
   margin: 0 0 7px;
   color: var(--forest);
   text-transform: uppercase;
-  font-size: 0.73rem;
-  font-weight: 800;
+  font-size: 0.68rem;
+  font-weight: 760;
   letter-spacing: 0;
 }
 
@@ -140,8 +140,8 @@ h3 {
 h1 {
   margin-bottom: 0;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(1.42rem, 2.2vw, 2.2rem);
-  line-height: 1;
+  font-size: clamp(1.2rem, 1.8vw, 1.8rem);
+  line-height: 1.04;
   letter-spacing: 0;
 }
 
@@ -155,6 +155,7 @@ h2 {
 h3 {
   margin-bottom: 0;
   line-height: 1.18;
+  font-weight: 720;
 }
 
 .topbar-actions,
@@ -214,7 +215,7 @@ select {
   color: #ffffff;
   background: var(--charcoal);
   padding: 0 14px;
-  font-weight: 750;
+  font-weight: 700;
 }
 
 .screen-grid {
@@ -265,8 +266,8 @@ select {
 
 .hero-copy h2 {
   max-width: 740px;
-  font-size: clamp(1.72rem, 3vw, 3.1rem);
-  line-height: 1.05;
+  font-size: clamp(1.35rem, 2.25vw, 2.35rem);
+  line-height: 1.1;
 }
 
 .metric-strip {
@@ -290,13 +291,13 @@ select {
 
 .metric strong {
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(1.55rem, 2.35vw, 2.35rem);
+  font-size: clamp(1.28rem, 1.9vw, 1.9rem);
   line-height: 1;
 }
 
 .metric span {
   color: var(--muted);
-  font-size: 0.92rem;
+  font-size: 0.84rem;
 }
 
 .metric.warn strong {
@@ -347,7 +348,7 @@ select {
 
 .tile-head span {
   color: var(--accent);
-  font-weight: 900;
+  font-weight: 780;
 }
 
 .tile-bars {
@@ -371,7 +372,7 @@ select {
 .pipeline-step p,
 .drawer dt {
   color: var(--muted);
-  font-size: 0.88rem;
+  font-size: 0.82rem;
 }
 
 .progress-track {
@@ -406,7 +407,7 @@ select {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 1.28rem;
+  font-size: 1.08rem;
 }
 
 .panel-title button {
@@ -458,7 +459,7 @@ select {
 }
 
 .section-head h2 {
-  font-size: clamp(1.42rem, 1.9vw, 2.05rem);
+  font-size: clamp(1.18rem, 1.55vw, 1.58rem);
 }
 
 .table-wrap {
@@ -488,7 +489,7 @@ th {
   z-index: 1;
   background: #eef1f3;
   color: #3c4742;
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0;
 }
@@ -518,8 +519,8 @@ td:first-child {
   width: fit-content;
   border-radius: 999px;
   padding: 3px 9px;
-  font-size: 0.75rem;
-  font-weight: 850;
+  font-size: 0.68rem;
+  font-weight: 760;
   color: #fff;
   background: #5c665f;
   white-space: nowrap;
@@ -545,8 +546,8 @@ td:first-child {
   background: color-mix(in srgb, var(--source, #777) 12%, #ffffff);
   color: color-mix(in srgb, var(--source, #777) 78%, #17201d);
   padding: 4px 8px;
-  font-size: 0.75rem;
-  font-weight: 800;
+  font-size: 0.68rem;
+  font-weight: 740;
 }
 
 .table-note {
@@ -579,6 +580,7 @@ td:first-child {
 .review-card h3 {
   font-family: Georgia, "Times New Roman", serif;
   font-style: italic;
+  font-weight: 700;
 }
 
 .flag-cloud {
@@ -627,13 +629,13 @@ td:first-child {
 .module-jump span,
 .panel-kicker {
   color: var(--forest);
-  font-size: 0.72rem;
-  font-weight: 900;
+  font-size: 0.66rem;
+  font-weight: 760;
   text-transform: uppercase;
 }
 
 .module-jump strong {
-  font-size: 0.96rem;
+  font-size: 0.9rem;
   line-height: 1.22;
 }
 
@@ -650,7 +652,7 @@ td:first-child {
   justify-content: center;
   width: fit-content;
   padding: 0 12px;
-  font-weight: 850;
+  font-weight: 740;
 }
 
 .trace-layout,
@@ -683,7 +685,7 @@ td:first-child {
 
 .specimen-panel h3 {
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 1.55rem;
+  font-size: 1.24rem;
 }
 
 .specimen-panel dl,
@@ -701,8 +703,8 @@ td:first-child {
 .specimen-panel dt,
 .synonym-card dt {
   color: var(--muted);
-  font-size: 0.74rem;
-  font-weight: 900;
+  font-size: 0.68rem;
+  font-weight: 760;
   text-transform: uppercase;
 }
 
@@ -731,7 +733,7 @@ td:first-child {
 .trace-step > span:first-child {
   font-family: Georgia, "Times New Roman", serif;
   color: var(--muted);
-  font-size: 1.6rem;
+  font-size: 1.28rem;
 }
 
 .trace-step p,
@@ -766,7 +768,7 @@ td:first-child {
 
 .evidence-card h3 {
   margin: 14px 0 8px;
-  font-size: 1rem;
+  font-size: 0.9rem;
 }
 
 .synonym-card {
@@ -784,8 +786,8 @@ td:first-child {
 .synonym-flow span {
   display: block;
   color: var(--muted);
-  font-size: 0.74rem;
-  font-weight: 900;
+  font-size: 0.68rem;
+  font-weight: 760;
   text-transform: uppercase;
 }
 
@@ -870,7 +872,7 @@ td:first-child {
   background: rgba(255, 255, 255, 0.94);
   padding: 10px;
   color: var(--muted);
-  font-size: 0.85rem;
+  font-size: 0.78rem;
 }
 
 .map-legend i {
@@ -907,7 +909,7 @@ td:first-child {
   gap: 8px;
   flex-wrap: wrap;
   color: var(--muted);
-  font-size: 0.82rem;
+  font-size: 0.76rem;
 }
 
 .coord-pair span {
@@ -928,7 +930,7 @@ td:first-child {
 .draft-page h3 {
   margin: 10px 0 18px;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(1.45rem, 2.25vw, 2.2rem);
+  font-size: clamp(1.18rem, 1.75vw, 1.72rem);
 }
 
 .draft-page h4 {
@@ -957,7 +959,7 @@ td:first-child {
 
 .draft-control > span {
   color: var(--muted);
-  font-weight: 900;
+  font-weight: 760;
 }
 
 .automation-hero {
@@ -1005,6 +1007,15 @@ td:first-child {
   margin-bottom: 12px;
 }
 
+.job-card h3,
+.rules-panel strong,
+.risk-row strong,
+.flag-row strong,
+.source-row strong,
+.chart-row > strong {
+  font-weight: 720;
+}
+
 .rules-panel {
   display: grid;
   gap: 12px;
@@ -1013,7 +1024,7 @@ td:first-child {
 
 .rules-panel h3 {
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 1.35rem;
+  font-size: 1.12rem;
 }
 
 .rule-row,
@@ -1035,7 +1046,7 @@ td:first-child {
   display: block;
   margin-top: 4px;
   color: var(--muted);
-  font-size: 0.88rem;
+  font-size: 0.82rem;
 }
 
 .visual-grid {
@@ -1049,7 +1060,7 @@ td:first-child {
 .chart-panel h3 {
   margin: 6px 0 16px;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 1.28rem;
+  font-size: 1.08rem;
 }
 
 .bar-matrix,
@@ -1074,7 +1085,7 @@ td:first-child {
   align-items: center;
   margin: 6px 0;
   color: var(--muted);
-  font-size: 0.82rem;
+  font-size: 0.76rem;
 }
 
 .mini-bar div {
@@ -1097,6 +1108,7 @@ td:first-child {
 .mini-bar strong {
   text-align: right;
   color: var(--ink);
+  font-weight: 720;
 }
 
 .donut-wrap {
@@ -1179,7 +1191,7 @@ td:first-child {
 
 .step-index {
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 1.7rem;
+  font-size: 1.32rem;
   color: var(--muted);
 }
 
@@ -1192,7 +1204,7 @@ td:first-child {
 
 .lead-card span {
   color: var(--forest);
-  font-weight: 900;
+  font-weight: 780;
 }
 
 .inventory-grid {
@@ -1204,8 +1216,8 @@ td:first-child {
 .file-type {
   color: var(--muted);
   text-transform: uppercase;
-  font-size: 0.75rem;
-  font-weight: 900;
+  font-size: 0.68rem;
+  font-weight: 760;
 }
 
 .drawer {
@@ -1234,13 +1246,13 @@ td:first-child {
   border-radius: 6px;
   background: #eef1f3;
   color: var(--ink);
-  font-size: 1.3rem;
+  font-size: 1.12rem;
 }
 
 .drawer h2 {
   clear: both;
   margin: 18px 0 20px;
-  font-size: 1.55rem;
+  font-size: 1.24rem;
 }
 
 .drawer dl {
@@ -1254,7 +1266,7 @@ td:first-child {
 }
 
 .drawer dt {
-  font-weight: 900;
+  font-weight: 760;
   text-transform: uppercase;
 }
 
@@ -1271,13 +1283,13 @@ td:first-child {
   background: #f7f8f3;
   padding: 12px;
   color: #3f4a45;
-  font-weight: 800;
+  font-weight: 740;
 }
 
 .drawer-ai p {
   margin: 4px 0 12px;
   color: #3f4a45;
-  font-size: 0.92rem;
+  font-size: 0.84rem;
   font-weight: 600;
 }
 
@@ -1288,7 +1300,7 @@ td:first-child {
   background: #ffffff;
   color: #36413c;
   padding: 0 12px;
-  font-weight: 850;
+  font-weight: 740;
 }
 
 .toast {
@@ -1303,7 +1315,7 @@ td:first-child {
   box-shadow: 0 18px 45px rgba(22, 32, 29, 0.18);
   color: #4c3a16;
   padding: 14px 16px;
-  font-weight: 800;
+  font-weight: 740;
 }
 
 .toast[hidden] {
@@ -1401,7 +1413,7 @@ td:first-child {
   }
 
   h1 {
-    font-size: 1.32rem;
+    font-size: 1.16rem;
     line-height: 1.05;
   }
 
@@ -1454,7 +1466,7 @@ td:first-child {
 
   .hero-copy h2 {
     max-width: 12.5ch;
-    font-size: 1.52rem;
+    font-size: 1.34rem;
     line-height: 1.08;
   }
 
@@ -1471,7 +1483,7 @@ td:first-child {
   }
 
   .trace-step > span:first-child {
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
 
   .map-panel {
