@@ -243,6 +243,12 @@ function bindViewEvents() {
       runAction(button);
     });
   });
+  document.querySelectorAll("[data-generate-draft]").forEach((button) => {
+    button.addEventListener("click", (event) => {
+      event.stopPropagation();
+      generateDraftSection(button);
+    });
+  });
 }
 
 function dashboardView() {
@@ -499,7 +505,7 @@ function draftView() {
           <p class="eyebrow">Programa de Manejo</p>
           <h2>Vista previa de borrador asistido</h2>
         </div>
-        <button class="primary-action" data-ai-action="Simulación: el borrador se genera con citas enlazadas y queda bloqueado hasta revisión técnica.">Generar sección</button>
+        <button class="primary-action" data-generate-draft>Generar sección</button>
       </div>
       <div class="draft-layout">
         <article class="draft-page">
@@ -523,6 +529,19 @@ function draftView() {
           <button class="inline-action" data-tab-link="gis">Validar GIS</button>
         </aside>
       </div>
+      <section class="draft-generated-output" id="draft-generated-output" hidden>
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Salida generada</p>
+            <h2>PDF de vista previa</h2>
+          </div>
+          <div class="download-actions">
+            <a class="primary-action" href="assets/downloads/programa_manejo_borrador_preview.pdf" target="_blank" rel="noreferrer">Abrir PDF</a>
+            <a class="inline-action download-cta" href="assets/downloads/programa_manejo_borrador_preview.pdf" download>Descargar PDF</a>
+          </div>
+        </div>
+        <iframe class="pdf-preview" src="assets/downloads/programa_manejo_borrador_preview.pdf" title="Vista previa PDF del borrador asistido de Programa de Manejo"></iframe>
+      </section>
     </section>`;
 }
 
@@ -1207,6 +1226,27 @@ function runAction(button) {
     showToast("Listo. La maqueta registró la acción, conservó trazabilidad y dejó una decisión pendiente para revisión humana.", "Resultado generado");
     setTimeout(() => button.classList.remove("action-complete"), 1800);
   }, 1350);
+}
+
+function generateDraftSection(button) {
+  button.classList.add("action-running");
+  button.disabled = true;
+  button.textContent = "Generando...";
+  showToast("Preparando PDF con resumen de biodiversidad, taxa de referencia y controles de trazabilidad.", "Generando sección");
+  clearTimeout(button.actionTimeout);
+  button.actionTimeout = setTimeout(() => {
+    const output = document.getElementById("draft-generated-output");
+    if (output) {
+      output.hidden = false;
+      output.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    button.classList.remove("action-running");
+    button.classList.add("action-complete");
+    button.disabled = false;
+    button.textContent = "Sección generada";
+    showToast("PDF listo. La vista previa quedó abierta en el tablero y puede descargarse.", "Resultado generado");
+    setTimeout(() => button.classList.remove("action-complete"), 1800);
+  }, 1050);
 }
 
 function showToast(message, title = "Acción simulada") {

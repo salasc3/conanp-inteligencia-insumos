@@ -1028,6 +1028,34 @@ td:first-child {
   align-content: start;
 }
 
+.draft-generated-output {
+  margin-top: 14px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #ffffff;
+  padding: 18px;
+  box-shadow: var(--shadow);
+}
+
+.draft-generated-output[hidden] {
+  display: none;
+}
+
+.download-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.pdf-preview {
+  width: 100%;
+  min-height: 680px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #f6f7f8;
+}
+
 .draft-control {
   display: grid;
   gap: 8px;
@@ -1742,5 +1770,13 @@ td:first-child {
 
   .draft-page {
     padding: 22px;
+  }
+
+  .download-actions {
+    justify-content: stretch;
+  }
+
+  .pdf-preview {
+    min-height: 520px;
   }
 }
