@@ -259,6 +259,7 @@ function dashboardView() {
         <div class="hero-copy">
           <p class="eyebrow">De carpeta dispersa a base trazable</p>
           <h2>Un sistema para consolidar, auditar y convertir insumos técnicos en inteligencia de manejo.</h2>
+          <p class="hero-summary">La maqueta muestra cómo una carpeta de documentos y bases heterogéneas se convierte en una base consultable, una cola de revisión técnica y módulos futuros para taxonomía, GIS, literatura científica y borradores de Programa de Manejo.</p>
         </div>
         <div class="metric-strip">
           ${metric("Registros normalizados", number(scoped.source_records))}
@@ -266,6 +267,11 @@ function dashboardView() {
           ${metric("Taxa por ANP", number(scoped.unique_taxa))}
           ${metric("En cola de revisión", number(scoped.records_with_quality_flags), "warn")}
         </div>
+      </section>
+      <section class="call-strip">
+        ${callCard("1. Qué ya se demostró", "181,528 registros normalizados, 78,511 ocurrencias deduplicadas y 12,693 taxa por ANP con trazabilidad a fuentes.")}
+        ${callCard("2. Qué no decide la IA", "La IA prepara evidencia y propone agrupaciones; CONANP conserva la decisión técnica, taxonómica, geográfica y jurídica.")}
+        ${callCard("3. Qué sigue", "Conectar polígonos oficiales, autoridades taxonómicas y extracción de publicaciones para pasar de maqueta a piloto operativo.")}
       </section>
       <section class="anp-grid">
         ${state.data.summaryByAnp.map(anpTile).join("")}
@@ -609,6 +615,7 @@ function pipelineView() {
           <h2>Flujo de IA propuesto</h2>
         </div>
       </div>
+      ${valueGraph()}
       <div class="pipeline">${state.data.pipeline.map(pipelineStep).join("")}</div>
       <div class="future-row">${state.data.publicationLeads.map(leadCard).join("")}</div>
     </section>`;
@@ -723,6 +730,35 @@ function moduleJump(title, detailText, tab) {
       <span>${escapeHtml(title)}</span>
       <strong>${escapeHtml(detailText)}</strong>
     </button>`;
+}
+
+function callCard(title, detailText) {
+  return `
+    <article class="call-card">
+      <strong>${escapeHtml(title)}</strong>
+      <p>${escapeHtml(detailText)}</p>
+    </article>`;
+}
+
+function valueGraph() {
+  const nodes = [
+    ["Carpeta CONANP", "Decretos, EPJ, SIG, economía y biodiversidad"],
+    ["Capa de ingesta", "Lectura, clasificación y extracción"],
+    ["Base consolidada", "Ocurrencias, especies, fuentes y calidad"],
+    ["Revisión humana", "Taxonomía, GIS, criterios técnicos"],
+    ["Salidas", "Tablero, reportes y borrador de Programa"],
+  ];
+  return `
+    <div class="value-graph">
+      ${nodes.map((node, index) => `
+        <article class="value-node">
+          <span>${String(index + 1).padStart(2, "0")}</span>
+          <strong>${escapeHtml(node[0])}</strong>
+          <p>${escapeHtml(node[1])}</p>
+        </article>
+        ${index < nodes.length - 1 ? `<b class="value-arrow">→</b>` : ""}
+      `).join("")}
+    </div>`;
 }
 
 function traceStep(step) {

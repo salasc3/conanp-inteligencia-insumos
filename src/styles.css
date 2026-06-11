@@ -270,6 +270,14 @@ select {
   line-height: 1.1;
 }
 
+.hero-summary {
+  max-width: 700px;
+  margin: 18px 0 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
 .metric-strip {
   position: relative;
   display: grid;
@@ -309,6 +317,35 @@ select {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
+}
+
+.call-strip {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.call-card,
+.value-node {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface);
+  padding: 14px;
+}
+
+.call-card strong {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--forest);
+  font-weight: 760;
+}
+
+.call-card p,
+.value-node p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.45;
 }
 
 .anp-tile {
@@ -1170,6 +1207,38 @@ td:first-child {
   gap: 10px;
 }
 
+.value-graph {
+  display: grid;
+  grid-template-columns: minmax(150px, 1fr) 24px minmax(150px, 1fr) 24px minmax(150px, 1fr) 24px minmax(150px, 1fr) 24px minmax(150px, 1fr);
+  align-items: stretch;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.value-node {
+  min-height: 148px;
+  display: grid;
+  align-content: start;
+  gap: 8px;
+}
+
+.value-node span {
+  color: var(--forest);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.25rem;
+}
+
+.value-node strong {
+  font-size: 0.98rem;
+}
+
+.value-arrow {
+  align-self: center;
+  color: var(--forest);
+  font-size: 1.3rem;
+  text-align: center;
+}
+
 .pipeline-step {
   display: grid;
   grid-template-columns: 52px minmax(0, 1fr) 34px;
@@ -1352,6 +1421,7 @@ td:first-child {
 
   .metric-strip,
   .anp-grid,
+  .call-strip,
   .review-grid,
   .inventory-grid,
   .future-row,
@@ -1374,8 +1444,13 @@ td:first-child {
   .gis-layout,
   .draft-layout,
   .script-panel,
-  .automation-layout {
+  .automation-layout,
+  .value-graph {
     grid-template-columns: 1fr;
+  }
+
+  .value-arrow {
+    transform: rotate(90deg);
   }
 
   .chart-panel.span-2 {
@@ -1437,6 +1512,7 @@ td:first-child {
 
   .metric-strip,
   .anp-grid,
+  .call-strip,
   .review-grid,
   .inventory-grid,
   .future-row,

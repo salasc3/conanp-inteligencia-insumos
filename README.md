@@ -4,15 +4,13 @@ Static deployment bundle for the CONANP AI consolidation pilot.
 
 ## Fastest Temporary Domain: GitHub Pages
 
-1. Create a new GitHub repository, for example `conanp-inteligencia-insumos`.
-2. Upload every file in this folder to the repository root.
-3. In GitHub, open `Settings -> Pages`.
-4. Under `Build and deployment`, choose `GitHub Actions`.
-5. Push or re-run the included workflow: `.github/workflows/pages.yml`.
-6. The site will publish to a URL like:
+1. In GitHub, open `Settings -> Pages`.
+2. Under `Build and deployment`, choose `GitHub Actions`.
+3. Push or re-run the included workflow: `.github/workflows/pages.yml`.
+4. The site will publish to:
 
 ```text
-https://YOUR_ORG.github.io/conanp-inteligencia-insumos/
+https://salasc3.github.io/conanp-inteligencia-insumos/
 ```
 
 This version runs entirely from `src/data/pilotData.json`, so it does not need npm, a build step, auth, or a backend.
@@ -68,4 +66,10 @@ Then show:
 
 1. Species explorer: searchable taxa with source systems and traceability.
 2. Review queue: staff focus on validation decisions instead of spreadsheet cleanup.
-3. AI pipeline: the same foundation can support taxonomic authority checks, geographic validation, publication ingestion, and Programa de Manejo drafting.
+3. Dashboard call strip: what was demonstrated, what CONANP still decides, and what comes next.
+4. AI pipeline: the value graph explains how source documents become a consolidated evidence base, review queue, and Program of Management outputs.
+5. Feature modules: traceability, synonyms, GIS validation, automation, visualization, and draft Programa de Manejo.
+
+## Call Prep
+
+Use `docs/CONANP_call_briefing_2026-06-11.md` for likely questions, defensible answers, and the system/value explanation for CONANP.
