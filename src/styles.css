@@ -262,7 +262,6 @@ button.action-complete {
 .review-screen,
 .pipeline-screen,
 .sources-screen,
-.guide-screen,
 .module-screen {
   border: 1px solid var(--line);
   border-radius: 6px;
@@ -464,7 +463,6 @@ button.action-complete {
 .review-screen,
 .pipeline-screen,
 .sources-screen,
-.guide-screen,
 .module-screen {
   padding: 18px;
 }
@@ -1314,98 +1312,6 @@ td:first-child {
   margin-top: 16px;
 }
 
-.guide-hero {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1px;
-  overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  background: var(--line);
-  margin-bottom: 14px;
-}
-
-.guide-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(300px, 0.42fr);
-  gap: 14px;
-}
-
-.tour-lane {
-  display: grid;
-  gap: 10px;
-}
-
-.tour-step {
-  display: grid;
-  grid-template-columns: 70px minmax(0, 1fr) auto;
-  gap: 14px;
-  align-items: center;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  background: #ffffff;
-  padding: 14px;
-}
-
-.tour-step > strong {
-  color: var(--forest);
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 1.12rem;
-}
-
-.tour-step p,
-.speaker-panel p {
-  margin: 4px 0 0;
-  color: var(--muted);
-  line-height: 1.45;
-}
-
-.speaker-panel {
-  display: grid;
-  align-content: start;
-  gap: 14px;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  background: #ffffff;
-  padding: 16px;
-}
-
-.diagram-links {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 12px;
-  margin-top: 14px;
-}
-
-.diagram-link {
-  display: grid;
-  gap: 8px;
-  min-height: 92px;
-  align-content: center;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  background: #ffffff;
-  color: var(--ink);
-  padding: 14px;
-  text-decoration: none;
-  transition: transform 160ms ease, box-shadow 160ms ease;
-}
-
-.diagram-link:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 28px rgba(38, 48, 44, 0.11);
-}
-
-.diagram-link span {
-  color: var(--forest);
-  font-weight: 760;
-}
-
-.diagram-link strong {
-  color: var(--muted);
-  font-size: 0.78rem;
-}
-
 .lead-card span {
   color: var(--forest);
   font-weight: 780;
@@ -1605,8 +1511,6 @@ td:first-child {
   .review-grid,
   .inventory-grid,
   .future-row,
-  .guide-hero,
-  .diagram-links,
   .module-strip,
   .evidence-grid,
   .synonym-board,
@@ -1627,7 +1531,6 @@ td:first-child {
   .draft-layout,
   .script-panel,
   .automation-layout,
-  .guide-layout,
   .value-graph {
     grid-template-columns: 1fr;
   }
@@ -1699,8 +1602,6 @@ td:first-child {
   .review-grid,
   .inventory-grid,
   .future-row,
-  .guide-hero,
-  .diagram-links,
   .module-strip,
   .evidence-grid,
   .synonym-board,
@@ -1735,8 +1636,7 @@ td:first-child {
   .synonym-flow,
   .job-card,
   .rule-row,
-  .chart-row,
-  .tour-step {
+  .chart-row {
     grid-template-columns: 1fr;
   }
 

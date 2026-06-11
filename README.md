@@ -66,21 +66,5 @@ Then show:
 
 1. Species explorer: searchable taxa with source systems and traceability.
 2. Review queue: staff focus on validation decisions instead of spreadsheet cleanup.
-3. Dashboard call strip: what was demonstrated, what CONANP still decides, and what comes next.
-4. AI pipeline: the value graph explains how source documents become a consolidated evidence base, review queue, and Program of Management outputs.
-5. Feature modules: traceability, synonyms, GIS validation, automation, visualization, and draft Programa de Manejo.
-
-## Call Prep
-
-Use `docs/CONANP_call_briefing_2026-06-11.md` for likely questions, defensible answers, and the system/value explanation for CONANP.
-
-Use `docs/dashboard_facilitation_guide.md` as the step-by-step screen-share route for a 25+ person call.
-
-## Standalone SVG Diagrams
-
-These are standalone files, not embedded Markdown diagrams, so they can be opened directly or dropped into slides:
-
-- `assets/diagrams/database_dashboard_logistics.svg`
-- `assets/diagrams/database_architecture.svg`
-- `assets/diagrams/workflow_pipeline.svg`
-- `assets/diagrams/human_review_loop.svg`
+3. AI pipeline: the value graph explains how source documents become a consolidated evidence base, review queue, and Program of Management outputs.
+4. Feature modules: traceability, synonyms, GIS validation, automation, visualization, and draft Programa de Manejo.
