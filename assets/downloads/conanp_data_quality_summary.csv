@@ -1,0 +1,9 @@
+﻿quality_flag,affected_records,affected_anps
+missing_taxon,2642,APFFPD; PNAGMS; RBBK
+missing_coordinates,0,
+invalid_coordinates,0,
+country_not_mexico_review,0,
+coordinate_uncertainty_gt_10km,688,APFFPD; PNAGMS; RBBK
+duplicate_source_record_id,0,
+possible_cross_source_duplicate,126707,APFFPD; PNAGMS; RBBK
+invasive_or_exotic,0,

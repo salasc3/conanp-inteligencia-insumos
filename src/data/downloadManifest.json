@@ -1,0 +1,82 @@
+[
+  {
+    "title": "PDF: vista previa de borrador asistido de Programa de Manejo",
+    "description": "Vista previa en PDF de una sección técnica generada desde el índice consolidado y la trazabilidad del piloto.",
+    "category": "Borrador PM",
+    "file": "assets/downloads/programa_manejo_borrador_preview.pdf",
+    "format": "PDF",
+    "sizeBytes": 6088
+  },
+  {
+    "title": "Libro resumen del piloto",
+    "description": "Resumen ejecutivo con pestañas de ANP, fuentes, calidad, especies, inventario y metodología.",
+    "category": "Resumen",
+    "file": "assets/downloads/CONANP_pilot_summary.xlsx",
+    "format": "XLSX",
+    "sizeBytes": 1580983
+  },
+  {
+    "title": "Índice maestro de especies",
+    "description": "Índice consolidado de taxa por ANP con fuentes, trazabilidad y banderas.",
+    "category": "Biodiversidad",
+    "file": "assets/downloads/conanp_species_index.csv",
+    "format": "CSV",
+    "sizeBytes": 4544520
+  },
+  {
+    "title": "Índice de especies APFF Playa Delfines",
+    "description": "Índice de especies para APFF Playa Delfines.",
+    "category": "Biodiversidad",
+    "file": "assets/downloads/species_index_APFFPD.csv",
+    "format": "CSV",
+    "sizeBytes": 269789
+  },
+  {
+    "title": "Índice de especies PN Arrecifes del GMS",
+    "description": "Índice de especies para Parque Nacional Arrecifes del Golfo de México-Sur.",
+    "category": "Biodiversidad",
+    "file": "assets/downloads/species_index_PNAGMS.csv",
+    "format": "CSV",
+    "sizeBytes": 2148918
+  },
+  {
+    "title": "Índice de especies RB Balam Kú",
+    "description": "Índice de especies para Reserva de la Biosfera Balam Kú.",
+    "category": "Biodiversidad",
+    "file": "assets/downloads/species_index_RBBK.csv",
+    "format": "CSV",
+    "sizeBytes": 2126511
+  },
+  {
+    "title": "Resumen de calidad de datos",
+    "description": "Resumen de banderas de calidad y revisión.",
+    "category": "Calidad",
+    "file": "assets/downloads/conanp_data_quality_summary.csv",
+    "format": "CSV",
+    "sizeBytes": 330
+  },
+  {
+    "title": "Inventario de insumos",
+    "description": "Inventario de documentos y bases procesadas.",
+    "category": "Trazabilidad",
+    "file": "assets/downloads/conanp_source_inventory.csv",
+    "format": "CSV",
+    "sizeBytes": 2885
+  },
+  {
+    "title": "Pistas de ingesta de publicaciones",
+    "description": "Primeras pistas para el flujo de búsqueda e ingesta de publicaciones.",
+    "category": "Publicaciones",
+    "file": "assets/downloads/conanp_publication_ingestion_leads.csv",
+    "format": "CSV",
+    "sizeBytes": 1355
+  },
+  {
+    "title": "Nota de alcance del piloto",
+    "description": "Nota de alcance y próximos módulos del piloto.",
+    "category": "Metodología",
+    "file": "assets/downloads/CONANP_pilot_scope.md",
+    "format": "MD",
+    "sizeBytes": 5808
+  }
+]

@@ -216,6 +216,7 @@ select {
   background: var(--charcoal);
   padding: 0 14px;
   font-weight: 700;
+  text-decoration: none;
   transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
 }
 
@@ -262,6 +263,7 @@ button.action-complete {
 .review-screen,
 .pipeline-screen,
 .sources-screen,
+.downloads-screen,
 .module-screen {
   border: 1px solid var(--line);
   border-radius: 6px;
@@ -463,6 +465,7 @@ button.action-complete {
 .review-screen,
 .pipeline-screen,
 .sources-screen,
+.downloads-screen,
 .module-screen {
   padding: 18px;
 }
@@ -721,6 +724,12 @@ td:first-child {
   width: fit-content;
   padding: 0 12px;
   font-weight: 740;
+  text-decoration: none;
+}
+
+.download-cta {
+  background: #18221f;
+  color: #ffffff;
 }
 
 .trace-layout,
@@ -1323,6 +1332,83 @@ td:first-child {
   gap: 12px;
 }
 
+.download-note {
+  border: 1px solid #d8dfd9;
+  border-radius: 6px;
+  background: #f7f8f3;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+}
+
+.download-note strong {
+  color: var(--forest);
+}
+
+.download-note p {
+  margin: 6px 0 0;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.downloads-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.download-card {
+  min-height: 210px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #ffffff;
+  padding: 16px;
+}
+
+.download-card h3 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.05rem;
+}
+
+.download-card p {
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.download-topline,
+.download-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.download-topline span,
+.download-meta span {
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.download-meta {
+  margin-top: auto;
+  border-top: 1px solid var(--line);
+  padding-top: 12px;
+}
+
+.download-meta a {
+  min-height: 34px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 6px;
+  background: var(--charcoal);
+  color: #ffffff;
+  padding: 0 12px;
+  text-decoration: none;
+  font-weight: 740;
+}
+
 .file-type {
   color: var(--muted);
   text-transform: uppercase;
@@ -1510,6 +1596,7 @@ td:first-child {
   .call-strip,
   .review-grid,
   .inventory-grid,
+  .downloads-grid,
   .future-row,
   .module-strip,
   .evidence-grid,
@@ -1601,6 +1688,7 @@ td:first-child {
   .call-strip,
   .review-grid,
   .inventory-grid,
+  .downloads-grid,
   .future-row,
   .module-strip,
   .evidence-grid,

@@ -1,0 +1,19 @@
+﻿path,file_name,anp_code,anp_name,file_type,size_bytes,role
+Insumos/APFF Playa Delfines/Decreto APFFPD.pdf,Decreto APFFPD.pdf,APFFPD,Área de Protección de Flora y Fauna Playa Delfines,pdf,372777,decreto
+Insumos/APFF Playa Delfines/EPJ-APFF-PlayaDelfines.pdf,EPJ-APFF-PlayaDelfines.pdf,APFFPD,Área de Protección de Flora y Fauna Playa Delfines,pdf,10722434,estudio_previo_justificativo
+Insumos/APFF Playa Delfines/PlayaDelfines_GBIF.xlsx,PlayaDelfines_GBIF.xlsx,APFFPD,Área de Protección de Flora y Fauna Playa Delfines,xlsx,679683,biodiversidad_gbif
+Insumos/APFF Playa Delfines/PlayaDelfines_Naturalista.xlsx,PlayaDelfines_Naturalista.xlsx,APFFPD,Área de Protección de Flora y Fauna Playa Delfines,xlsx,92573,biodiversidad_naturalista
+Insumos/APFF Playa Delfines/PlayaDelfines_SNIB.xlsx,PlayaDelfines_SNIB.xlsx,APFFPD,Área de Protección de Flora y Fauna Playa Delfines,xlsx,1793524,biodiversidad_snib
+Insumos/Insumos empleados para cartografia.xlsx,Insumos empleados para cartografia.xlsx,GENERAL,General,xlsx,11640,sistema_informacion_geografica_fuentes
+Insumos/PM Economía 08may26-ok.docx,PM Economía 08may26-ok.docx,GENERAL,General,docx,28472,economia_demografia_contexto
+Insumos/PN Arrecifes del GMS/ArrecifesGMS_GBIF.xlsx,ArrecifesGMS_GBIF.xlsx,PNAGMS,Parque Nacional Arrecifes del Golfo de México-Sur,xlsx,4275551,biodiversidad_gbif
+Insumos/PN Arrecifes del GMS/ArrecifesGMS_Naturalista.xlsx,ArrecifesGMS_Naturalista.xlsx,PNAGMS,Parque Nacional Arrecifes del Golfo de México-Sur,xlsx,50840,biodiversidad_naturalista
+Insumos/PN Arrecifes del GMS/ArrecifesGMS_OBIS.xlsx,ArrecifesGMS_OBIS.xlsx,PNAGMS,Parque Nacional Arrecifes del Golfo de México-Sur,xlsx,11329094,biodiversidad_obis
+Insumos/PN Arrecifes del GMS/ArrecifesGMS_SNIB.xlsx,ArrecifesGMS_SNIB.xlsx,PNAGMS,Parque Nacional Arrecifes del Golfo de México-Sur,xlsx,3049756,biodiversidad_snib
+Insumos/PN Arrecifes del GMS/Decreto PNAGMS.pdf,Decreto PNAGMS.pdf,PNAGMS,Parque Nacional Arrecifes del Golfo de México-Sur,pdf,707099,decreto
+Insumos/PN Arrecifes del GMS/EPJ-PN-ArrecifesDelGolfoDeMexico-Sur.pdf,EPJ-PN-ArrecifesDelGolfoDeMexico-Sur.pdf,PNAGMS,Parque Nacional Arrecifes del Golfo de México-Sur,pdf,16720884,estudio_previo_justificativo
+Insumos/RB Balam Kú/BalamKu_GBIF.xlsx,BalamKu_GBIF.xlsx,RBBK,Reserva de la Biosfera Balam Kú,xlsx,16041186,biodiversidad_gbif
+Insumos/RB Balam Kú/BalamKu_Naturalista.xlsx,BalamKu_Naturalista.xlsx,RBBK,Reserva de la Biosfera Balam Kú,xlsx,999123,biodiversidad_naturalista
+Insumos/RB Balam Kú/BalamKu_SNIB.xlsx,BalamKu_SNIB.xlsx,RBBK,Reserva de la Biosfera Balam Kú,xlsx,19461376,biodiversidad_snib
+Insumos/RB Balam Kú/Decreto RBBK.pdf,Decreto RBBK.pdf,RBBK,Reserva de la Biosfera Balam Kú,pdf,632484,decreto
+Insumos/RB Balam Kú/EPJ-RB-BalamKu.pdf,EPJ-RB-BalamKu.pdf,RBBK,Reserva de la Biosfera Balam Kú,pdf,18968770,estudio_previo_justificativo

@@ -11,7 +11,7 @@ const SOURCE_COLORS = {
   Naturalista: "#c1792d",
 };
 
-const TAB_IDS = new Set(["dashboard", "species", "review", "traceability", "synonyms", "gis", "automation", "visuals", "draft", "pipeline", "sources"]);
+const TAB_IDS = new Set(["dashboard", "species", "review", "traceability", "synonyms", "gis", "automation", "visuals", "draft", "pipeline", "downloads", "sources"]);
 const initialTab = new URLSearchParams(window.location.search).get("tab");
 
 const state = {
@@ -55,7 +55,11 @@ loadPilotData()
   });
 
 async function loadPilotData() {
-  const localData = await fetchJson("./src/data/pilotData.json");
+  const [localData, downloads] = await Promise.all([
+    fetchJson("./src/data/pilotData.json"),
+    fetchJson("./src/data/downloadManifest.json").catch(() => []),
+  ]);
+  localData.downloads = downloads;
   const wantsSupabase = config.dataMode === "supabase";
   const hasSupabase = Boolean(config.supabaseUrl && config.supabaseAnonKey);
 
@@ -183,6 +187,7 @@ function render() {
     visuals: visualsView,
     draft: draftView,
     pipeline: pipelineView,
+    downloads: downloadsView,
     sources: sourcesView,
   };
   app.innerHTML = views[state.tab]();
@@ -283,6 +288,7 @@ function dashboardView() {
         ${moduleJump("Automatización", "Reglas, colas y validación por lotes.", "automation")}
         ${moduleJump("Visualización", "Cobertura, calidad y fuentes en una vista ejecutiva.", "visuals")}
         ${moduleJump("Borrador PM", "Texto técnico alimentado por datos trazables.", "draft")}
+        ${moduleJump("Descargas", "PDF, Excel y CSV generados desde el flujo piloto.", "downloads")}
       </section>
       <section class="wide-panel">
         ${panelTitle("Fuentes integradas", "Explorar insumos", "sources")}
@@ -511,6 +517,8 @@ function draftView() {
           ${draftControl("Nomenclatura", "Pendiente especialista", "warn")}
           ${draftControl("Distribución geográfica", "Pendiente GIS", "warn")}
           ${draftControl("Jurídico", "No iniciado", "default")}
+          <a class="inline-action download-cta" href="assets/downloads/programa_manejo_borrador_preview.pdf" target="_blank" rel="noreferrer" download>Ver PDF de vista previa</a>
+          <button class="inline-action" data-tab-link="downloads">Ver descargas</button>
           <button class="inline-action" data-tab-link="traceability">Ver trazabilidad</button>
           <button class="inline-action" data-tab-link="gis">Validar GIS</button>
         </aside>
@@ -621,6 +629,28 @@ function pipelineView() {
     </section>`;
 }
 
+function downloadsView() {
+  const downloads = state.data.downloads || [];
+  const featured = downloads.find((item) => item.format === "PDF") || downloads[0];
+  return `
+    <section class="downloads-screen">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Salidas generadas por el flujo piloto</p>
+          <h2>Centro de descargas</h2>
+        </div>
+        ${featured ? `<a class="primary-action" href="${escapeHtml(featured.file)}" target="_blank" rel="noreferrer" download>Abrir PDF de borrador</a>` : ""}
+      </div>
+      <div class="download-note">
+        <strong>Nota operativa</strong>
+        <p>Estos archivos son salidas ligeras para revisión y demostración. Las exportaciones pesadas de ocurrencias normalizadas, ocurrencias deduplicadas y la base SQLite completa deben salir desde Supabase o un proceso de exportación autenticado, no desde GitHub Pages.</p>
+      </div>
+      <div class="downloads-grid">
+        ${downloads.map(downloadCard).join("")}
+      </div>
+    </section>`;
+}
+
 function sourcesView() {
   return `
     <section class="sources-screen">
@@ -632,6 +662,22 @@ function sourcesView() {
       </div>
       <div class="inventory-grid">${state.data.sourceInventory.map(inventoryCard).join("")}</div>
     </section>`;
+}
+
+function downloadCard(item) {
+  return `
+    <article class="download-card">
+      <div class="download-topline">
+        ${badge(item.format, item.format === "PDF" ? "warn" : "ok")}
+        <span>${escapeHtml(item.category || "Salida")}</span>
+      </div>
+      <h3>${escapeHtml(item.title)}</h3>
+      <p>${escapeHtml(item.description)}</p>
+      <div class="download-meta">
+        <span>${formatBytes(item.sizeBytes)}</span>
+        <a href="${escapeHtml(item.file)}" target="_blank" rel="noreferrer" download>Descargar</a>
+      </div>
+    </article>`;
 }
 
 function speciesForCurrentAnp() {
@@ -1107,6 +1153,19 @@ function detail(label, value) {
 
 function number(value) {
   return new Intl.NumberFormat("en-US").format(Number(value || 0));
+}
+
+function formatBytes(value) {
+  const bytes = Number(value || 0);
+  if (bytes < 1024) return `${bytes} B`;
+  const units = ["KB", "MB", "GB"];
+  let size = bytes / 1024;
+  let unit = 0;
+  while (size >= 1024 && unit < units.length - 1) {
+    size /= 1024;
+    unit += 1;
+  }
+  return `${size.toFixed(size >= 10 ? 0 : 1)} ${units[unit]}`;
 }
 
 function sum(rows, field) {
