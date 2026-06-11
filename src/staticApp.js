@@ -523,16 +523,16 @@ function draftView() {
           ${draftControl("Nomenclatura", "Pendiente especialista", "warn")}
           ${draftControl("Distribución geográfica", "Pendiente GIS", "warn")}
           ${draftControl("Jurídico", "No iniciado", "default")}
-          <a class="inline-action download-cta" href="assets/downloads/programa_manejo_borrador_preview.pdf" target="_blank" rel="noreferrer" download>Ver PDF de vista previa</a>
+          <a class="inline-action download-cta" href="assets/downloads/programa_manejo_borrador_preview.pdf" target="_blank" rel="noreferrer">Ver PDF de vista previa</a>
           <button class="inline-action" data-tab-link="downloads">Ver descargas</button>
           <button class="inline-action" data-tab-link="traceability">Ver trazabilidad</button>
           <button class="inline-action" data-tab-link="gis">Validar GIS</button>
         </aside>
       </div>
-      <section class="draft-generated-output" id="draft-generated-output" hidden>
+      <section class="draft-generated-output draft-output-ready" id="draft-generated-output">
         <div class="section-head">
           <div>
-            <p class="eyebrow">Salida generada</p>
+            <p class="eyebrow">Salida disponible</p>
             <h2>PDF de vista previa</h2>
           </div>
           <div class="download-actions">
@@ -1238,7 +1238,9 @@ function generateDraftSection(button) {
     const output = document.getElementById("draft-generated-output");
     if (output) {
       output.hidden = false;
+      output.classList.add("draft-output-highlight");
       output.scrollIntoView({ behavior: "smooth", block: "start" });
+      setTimeout(() => output.classList.remove("draft-output-highlight"), 2200);
     }
     button.classList.remove("action-running");
     button.classList.add("action-complete");

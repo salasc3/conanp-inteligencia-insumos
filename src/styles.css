@@ -1035,10 +1035,21 @@ td:first-child {
   background: #ffffff;
   padding: 18px;
   box-shadow: var(--shadow);
+  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
 }
 
 .draft-generated-output[hidden] {
   display: none;
+}
+
+.draft-output-ready {
+  border-color: #cdd8cf;
+}
+
+.draft-output-highlight {
+  border-color: var(--forest);
+  box-shadow: 0 18px 42px rgba(11, 107, 85, 0.18);
+  transform: translateY(-2px);
 }
 
 .download-actions {
