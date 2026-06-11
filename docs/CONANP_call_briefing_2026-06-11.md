@@ -1,112 +1,112 @@
-# CONANP Call Briefing
+# Briefing Para La Llamada Con CONANP
 
-Date: June 11, 2026  
-Purpose: Explain the dashboard and position it as a first working pilot foundation, not as a final scientific/legal product.
+Fecha: 11 de junio de 2026  
+Propósito: explicar el tablero y posicionarlo como una primera base funcional de piloto, no como un producto científico o jurídico final.
 
-## Opening Script
+## Guion De Apertura
 
-What we sent is a first operational mockup showing how CONANP could move from a folder of disconnected documents and databases into a single traceable workspace. The goal is not to replace CONANP's technical judgment. The goal is to release the team from repetitive consolidation work, preserve evidence, flag what needs review, and give specialists a faster way to validate and use the information.
+Lo que enviamos es una primera maqueta operativa que muestra cómo CONANP podría pasar de una carpeta con documentos y bases de datos desconectadas a un espacio único, trazable y revisable. El objetivo no es sustituir el criterio técnico de CONANP. El objetivo es liberar al equipo de trabajo repetitivo de consolidación, preservar evidencia, marcar lo que requiere revisión y dar a los especialistas una forma más rápida de validar y usar la información.
 
-The dashboard is connected to the pilot database we built from the files CONANP sent: Decretos, EPJ, SIG/economy-demography references, and biodiversity spreadsheets from SNIB, GBIF, Naturalista, and OBIS.
+El tablero está conectado a la base piloto que construimos a partir de los archivos enviados por CONANP: Decretos, EPJ, referencias de SIG/economía-demografía y bases de biodiversidad provenientes de SNIB, GBIF, Naturalista y OBIS.
 
-## What The Dashboard Actually Shows
+## Qué Muestra Realmente El Tablero
 
-- 181,528 biodiversity records were normalized into one common structure.
-- 78,511 representative occurrence records were generated after duplicate grouping.
-- 12,693 ANP-level taxa were indexed across the three protected areas.
-- Each row preserves source traceability: source system, source file, row number, record ID, license, URL/citation where available, and quality flags.
-- The dashboard is currently local/mockup-backed, with a Supabase schema ready for cloud deployment.
+- Se normalizaron 181,528 registros de biodiversidad en una estructura común.
+- Se generaron 78,511 registros representativos de ocurrencia después de agrupar duplicados probables.
+- Se indexaron 12,693 taxa a nivel ANP entre las tres áreas protegidas.
+- Cada fila conserva trazabilidad de origen: sistema fuente, archivo, número de fila, ID de registro, licencia, URL/cita cuando está disponible y banderas de calidad.
+- El tablero actualmente funciona como maqueta local, con un esquema Supabase listo para despliegue en nube cuando se decida el entorno.
 
-## Core Explanation
+## Explicación Central
 
-The dashboard has three jobs:
+El tablero tiene tres funciones principales:
 
-1. **Consolidate**: Take heterogeneous sources and put them into a single shared model.
-2. **Audit**: Preserve where each claim came from, so CONANP can defend the data.
-3. **Route work**: Move uncertain records into expert review instead of hiding uncertainty.
+1. **Consolidar**: tomar fuentes heterogéneas y llevarlas a un modelo común.
+2. **Auditar**: preservar de dónde salió cada dato para que CONANP pueda defenderlo.
+3. **Canalizar trabajo**: mover los registros inciertos a revisión experta en vez de ocultar la incertidumbre.
 
-This is why the dashboard includes a species explorer, review queue, source inventory, traceability view, synonym module, GIS validation module, automation module, visualization page, and draft Program of Management preview.
+Por eso el tablero incluye explorador de especies, cola de revisión, inventario de insumos, vista de trazabilidad, módulo de sinónimos, validación GIS, automatización, visualización y una vista previa de borrador para Programa de Manejo.
 
-## Logistical Connection We Made
+## Conexión Logística Que Construimos
 
 ```mermaid
 flowchart LR
-    A["CONANP folder<br/>PDF, DOCX, XLSX"] --> B["Ingestion layer<br/>detect file role and source"]
-    B --> C["Normalization scripts<br/>SNIB, GBIF, OBIS, Naturalista"]
-    C --> D["SQLite pilot database<br/>normalized_occurrences, species_index, source_inventory"]
-    D --> E["Dashboard data export<br/>pilotData.json"]
-    E --> F["Local dashboard<br/>localhost static app"]
-    D --> G["Supabase-ready schema<br/>future hosted database"]
-    G --> H["Collaborative dashboard<br/>roles, review decisions, audit log"]
-    H --> I["Outputs<br/>species DB, reports, GIS review, draft PM sections"]
+    A["Carpeta CONANP<br/>PDF, DOCX, XLSX"] --> B["Capa de ingesta<br/>detecta rol y fuente"]
+    B --> C["Scripts de normalización<br/>SNIB, GBIF, OBIS, Naturalista"]
+    C --> D["Base piloto SQLite<br/>normalized_occurrences, species_index, source_inventory"]
+    D --> E["Exportación para tablero<br/>pilotData.json"]
+    E --> F["Tablero local<br/>aplicación estática"]
+    D --> G["Esquema Supabase<br/>base hospedada futura"]
+    G --> H["Tablero colaborativo<br/>roles, decisiones, bitácora"]
+    H --> I["Salidas<br/>base de especies, reportes, GIS, borradores PM"]
 ```
 
-In this first version, the dashboard reads from a local JSON export generated from the SQLite database. That keeps the demo fast and stable. For a hosted version, the same tables can be loaded into Supabase using the schema included in the project.
+En esta primera versión, el tablero lee un archivo JSON local generado desde la base SQLite. Eso mantiene la demostración rápida y estable. Para una versión hospedada, las mismas tablas pueden cargarse en Supabase usando el esquema incluido en el repositorio.
 
-## Defensible Points
+## Puntos Defendibles
 
-- **We are not claiming final scientific validation yet.** We are showing that the consolidation and traceability foundation works.
-- **The AI does not erase uncertainty.** It makes uncertainty visible through quality flags and review queues.
-- **Original records are preserved.** Deduplication creates a representative layer, but raw/source traceability remains.
-- **CONANP remains the authority.** Expert approval is required for taxonomy, geography, legal interpretation, and final text.
-- **The dashboard is built from their files.** The numbers are not dummy placeholders; they come from the supplied pilot data.
-- **This is scalable.** The same pattern can process additional ANPs, sources, literature, and future document sets.
-- **This reduces manual workload.** Staff no longer need to manually reconcile spreadsheets before doing expert review.
-- **The most valuable feature is traceability.** Any generated table, recommendation, or draft should link back to its source.
+- **No estamos afirmando validación científica final.** Estamos mostrando que la base de consolidación y trazabilidad funciona.
+- **La IA no borra la incertidumbre.** La hace visible mediante banderas de calidad y colas de revisión.
+- **Los registros originales se preservan.** La deduplicación crea una capa representativa, pero la trazabilidad cruda permanece.
+- **CONANP conserva la autoridad.** La aprobación experta es necesaria para taxonomía, geografía, interpretación jurídica y texto final.
+- **El tablero está construido con sus archivos.** Los números no son datos ficticios; vienen de los insumos piloto enviados.
+- **Es escalable.** El mismo patrón puede procesar más ANP, fuentes, literatura y futuros conjuntos documentales.
+- **Reduce carga manual.** El personal ya no tendría que reconciliar hojas de cálculo completas antes de hacer revisión experta.
+- **La funcionalidad más valiosa es la trazabilidad.** Cualquier tabla, recomendación o borrador debe poder regresar a su fuente.
 
-## Likely Questions And Suggested Answers
+## Preguntas Probables Y Respuestas Sugeridas
 
-**Is this already scientifically validated?**  
-No. This is a consolidation and triage layer. It prepares the data for scientific validation by preserving evidence, grouping duplicates, and flagging records needing taxonomic or geographic review.
+**¿Esto ya está validado científicamente?**  
+No. Esta es una capa de consolidación y priorización. Prepara los datos para validación científica al preservar evidencia, agrupar duplicados probables y marcar registros que requieren revisión taxonómica o geográfica.
 
-**Can the AI remove duplicates automatically?**  
-It can group likely duplicates and propose representative records. Final merge rules should be agreed with CONANP, especially where records differ by source, date, coordinates, or taxonomic authority.
+**¿La IA puede eliminar duplicados automáticamente?**  
+Puede agrupar duplicados probables y proponer registros representativos. Las reglas finales de fusión deben acordarse con CONANP, especialmente cuando los registros difieren por fuente, fecha, coordenadas o autoridad taxonómica.
 
-**How are synonyms handled?**  
-In this pilot, we use accepted/current names already present in source authorities such as SNIB/CONABIO, GBIF, OBIS/WoRMS, and Naturalista. The next version would connect directly to taxonomic authority APIs and require specialist approval before changing accepted names.
+**¿Cómo se manejan los sinónimos?**  
+En este piloto usamos nombres aceptados o vigentes que ya vienen en las fuentes, como SNIB/CONABIO, GBIF, OBIS/WoRMS y Naturalista. La siguiente versión conectaría APIs de autoridades taxonómicas y requeriría aprobación especialista antes de cambiar nombres aceptados.
 
-**Can this check whether species belong geographically to the ANP?**  
-The foundation is ready because records have coordinates and ANP labels. The next step is to load official ANP polygons and biogeographic/range references, then classify records as inside, near boundary, outlier, or requiring review.
+**¿Puede revisar si las especies pertenecen geográficamente al ANP?**  
+La base está lista porque los registros tienen coordenadas y etiquetas de ANP. El siguiente paso es cargar polígonos oficiales de ANP y referencias biogeográficas/de distribución, para clasificar registros como dentro del polígono, cerca del límite, atípicos o sujetos a revisión.
 
-**What happens with scientific publications?**  
-The publication module would search, screen, ingest PDFs, extract taxon mentions/tables, and merge them as a separate traceable source. It should never blend literature records into the database without a source label and review status.
+**¿Qué pasa con publicaciones científicas?**  
+El módulo de publicaciones buscaría, filtraría, ingeriría PDFs, extraería menciones/tablas de taxa y las integraría como una fuente separada y trazable. Nunca se deben mezclar registros de literatura en la base sin etiqueta de fuente y estado de revisión.
 
-**Can this generate Programas de Manejo text?**  
-Yes, but only after data and source traceability are in place. The draft module should generate text with linked citations and mark any unvalidated claims as pending review.
+**¿Puede generar texto para Programas de Manejo?**  
+Sí, pero solamente después de tener datos y trazabilidad de fuentes. El módulo de borrador debe generar texto con citas enlazadas y marcar cualquier afirmación no validada como pendiente de revisión.
 
-**Why Supabase? Why not Firebase?**  
-Supabase is a better first fit because the data is relational: ANPs, sources, occurrences, species, flags, review decisions, and source inventory. Firebase can work for realtime UI, but Supabase maps more naturally to SQL tables, filtering, joins, and audit workflows.
+**¿Por qué Supabase y no Firebase?**  
+Supabase es mejor primer ajuste porque los datos son relacionales: ANP, fuentes, ocurrencias, especies, banderas, decisiones de revisión e inventario de insumos. Firebase puede funcionar para interfaces en tiempo real, pero Supabase se adapta mejor a tablas SQL, filtros, relaciones y bitácoras de auditoría.
 
-**Does this replace CONANP personnel?**  
-No. It removes repetitive consolidation work and gives specialists a clearer review queue. The value is making expert time more focused, not replacing technical authority.
+**¿Esto reemplaza al personal de CONANP?**  
+No. Quita trabajo repetitivo de consolidación y da a especialistas una cola de revisión más clara. El valor es enfocar mejor el tiempo experto, no reemplazar la autoridad técnica.
 
-**How would permissions work?**  
-A hosted version can have roles: viewer, reviewer, taxonomic specialist, GIS specialist, legal reviewer, and administrator. Each decision can store user, timestamp, rationale, and source evidence.
+**¿Cómo funcionarían los permisos?**  
+Una versión hospedada puede tener roles: consulta, revisor, especialista taxonómico, especialista GIS, revisor jurídico y administrador. Cada decisión puede guardar usuario, fecha, justificación y evidencia fuente.
 
-**What is the implementation path?**  
-First, validate the data model with this pilot. Second, connect Supabase and role-based review. Third, add GIS polygons and authority APIs. Fourth, add publication ingestion. Fifth, add controlled draft generation.
+**¿Cuál es la ruta de implementación?**  
+Primero, validar el modelo de datos con este piloto. Segundo, conectar Supabase y revisión por roles. Tercero, agregar polígonos GIS y APIs de autoridades. Cuarto, agregar ingesta de publicaciones. Quinto, agregar generación controlada de borradores.
 
-## Recommended Demo Flow
+## Flujo Recomendado De Demostración
 
-1. Open the dashboard and start with the top metrics.
-2. Click each ANP card and show how the numbers change.
-3. Open the species explorer and search for a recognizable taxon.
-4. Open a species drawer and explain traceability.
-5. Open the review queue and explain that uncertainty is routed to specialists.
-6. Open the pipeline page and show the value graph.
-7. Open the GIS, synonyms, and draft modules as future-state examples.
-8. Close by saying the next meeting should agree on validation rules, polygons, taxonomic authorities, and deployment environment.
+1. Abrir el tablero y comenzar con las métricas superiores.
+2. Hacer clic en cada tarjeta de ANP y mostrar cómo cambian los números.
+3. Abrir el explorador de especies y buscar un taxón reconocible.
+4. Abrir el panel lateral de una especie y explicar la trazabilidad.
+5. Abrir la cola de revisión y explicar que la incertidumbre se canaliza a especialistas.
+6. Abrir la página de pipeline y mostrar el gráfico de valor.
+7. Abrir los módulos de GIS, sinónimos y borrador como ejemplos de estado futuro.
+8. Cerrar diciendo que la siguiente reunión debe acordar reglas de validación, polígonos, autoridades taxonómicas y entorno de despliegue.
 
-## Suggested Closing Ask
+## Solicitud De Cierre
 
-To move from mockup to operational pilot, we need:
+Para pasar de maqueta a piloto operativo necesitamos:
 
-- Official ANP polygon files or GIS source of truth.
-- Preferred taxonomic authorities by biological group.
-- A sample CONANP review workflow: who approves taxonomy, geography, citations, and final text.
-- Permission to load the pilot into a hosted Supabase workspace or CONANP-approved equivalent.
-- Agreement on 1-2 ANPs for the next deeper prototype cycle.
+- Polígonos oficiales de las ANP o fuente GIS de referencia.
+- Autoridades taxonómicas preferidas por grupo biológico.
+- Un flujo de revisión de CONANP: quién aprueba taxonomía, geografía, citas y texto final.
+- Permiso para cargar el piloto en un espacio Supabase hospedado o equivalente aprobado por CONANP.
+- Acuerdo sobre 1-2 ANP para el siguiente ciclo de prototipo más profundo.
 
-## One-Sentence Value Proposition
+## Propuesta De Valor En Una Frase
 
-This system turns disconnected technical inputs into a traceable, reviewable, and reusable evidence base that helps CONANP produce Programas de Manejo faster while keeping scientific and institutional control in CONANP's hands.
+Este sistema convierte insumos técnicos desconectados en una base de evidencia trazable, revisable y reutilizable que ayuda a CONANP a producir Programas de Manejo más rápido, manteniendo el control científico e institucional en manos de CONANP.

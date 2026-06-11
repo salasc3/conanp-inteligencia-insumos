@@ -1,106 +1,106 @@
-# Dashboard Facilitation Guide
+# Guía De Facilitación Del Tablero
 
-Audience: CONANP group call with 25+ participants  
-Goal: Explain what exists, what is simulated, what CONANP controls, and what the next operational pilot would require.
+Audiencia: llamada grupal con CONANP de 25+ personas  
+Objetivo: explicar qué existe, qué está simulado, qué controla CONANP y qué requeriría el siguiente piloto operativo.
 
-## One-Minute Setup
+## Preparación De Un Minuto
 
-Open the dashboard and say:
+Abrir el tablero y decir:
 
-"We are going to walk through a working mockup built from the files CONANP sent. The important thing is not the visual layer alone. Underneath, the data has been normalized into a traceable structure: source files, source systems, record IDs, row numbers, species names, flags, and review status. This is a foundation for reducing manual consolidation work while keeping scientific decisions in CONANP's hands."
+"Vamos a recorrer una maqueta funcional construida a partir de los archivos que CONANP envió. Lo importante no es solamente la capa visual. Debajo, los datos fueron normalizados en una estructura trazable: archivos fuente, sistemas de origen, IDs de registro, números de fila, nombres de especies, banderas de calidad y estado de revisión. Esta es una base para reducir trabajo manual de consolidación, manteniendo las decisiones científicas en manos de CONANP."
 
-## Recommended Screen-Share Order
+## Orden Recomendado Para Compartir Pantalla
 
-| Time | Screen | What to show | Message |
+| Tiempo | Pantalla | Qué mostrar | Mensaje |
 | --- | --- | --- | --- |
-| 0:00 | Dashboard | Top metrics and call strip | "This proves consolidation, not final scientific validation." |
-| 2:00 | ANP cards | Click each ANP | "The same model works per protected area." |
-| 4:00 | Species | Search and open a species drawer | "Each taxon keeps sources and traceability." |
-| 7:00 | Review | Review queue cards | "Uncertainty becomes a work queue, not hidden risk." |
-| 10:00 | Traceability | Demonstration taxon timeline | "A reviewer can see how evidence moves from file to decision." |
-| 13:00 | Synonyms | Detect synonyms button | "Names can be proposed for authority matching without erasing originals." |
-| 16:00 | GIS | Map mockup | "This is where official polygons and distribution checks enter." |
-| 19:00 | Automation | Job lane and rules | "The system automates repetitive preparation and leaves approvals to people." |
-| 22:00 | Pipeline | Value graph and pipeline | "This is how the project scales into literature ingestion and Program drafting." |
-| 25:00 | Guide | SVG links and closing ask | "Here are the implementation pieces we need to move forward." |
+| 0:00 | Tablero | Métricas superiores y franja de llamada | "Esto demuestra consolidación, no validación científica final." |
+| 2:00 | Tarjetas ANP | Hacer clic en cada ANP | "El mismo modelo funciona por área protegida." |
+| 4:00 | Especies | Buscar y abrir el panel lateral de una especie | "Cada taxón conserva fuentes y trazabilidad." |
+| 7:00 | Revisión | Tarjetas de cola de revisión | "La incertidumbre se convierte en una cola de trabajo, no en riesgo oculto." |
+| 10:00 | Trazabilidad | Línea de tiempo de un taxón de demostración | "Un revisor puede ver cómo la evidencia va del archivo a la decisión." |
+| 13:00 | Sinónimos | Botón de detectar sinónimos | "Los nombres pueden proponerse para homologación sin borrar los originales." |
+| 16:00 | GIS | Maqueta del mapa | "Aquí entrarían polígonos oficiales y reglas de distribución." |
+| 19:00 | Automatización | Carril de tareas y reglas | "El sistema automatiza preparación repetitiva y deja aprobaciones a personas." |
+| 22:00 | Pipeline | Gráfico de valor y flujo | "Así escala el proyecto hacia literatura científica y borradores de Programa." |
+| 25:00 | Guía | Ligas a SVG y solicitud de cierre | "Estas son las piezas de implementación que necesitamos para avanzar." |
 
-## Dashboard Page Talking Points
+## Puntos Para La Página De Tablero
 
-- The top numbers are from the pilot data, not placeholders.
-- The call strip is the executive summary: what is demonstrated, what remains human, what comes next.
-- ANP cards help directors understand that this is repeatable by area, not a one-off spreadsheet exercise.
+- Los números superiores vienen de los datos piloto, no son placeholders.
+- La franja de llamada resume: qué se demostró, qué sigue siendo humano y qué viene después.
+- Las tarjetas de ANP ayudan a dirección a entender que esto es repetible por área, no un ejercicio aislado de Excel.
 
-## Species Explorer Talking Points
+## Puntos Para El Explorador De Especies
 
-- The search table is a working interface for a consolidated species index.
-- The drawer is the important part: it shows source systems, record counts, traceability, taxonomy status, and review status.
-- Do not present the species list as final. Present it as an auditable first consolidation.
+- La tabla de búsqueda es una interfaz funcional para un índice consolidado de especies.
+- El panel lateral es la parte importante: muestra sistemas fuente, conteos de registros, trazabilidad, estado taxonómico y estado de revisión.
+- No presentar la lista como final. Presentarla como una primera consolidación auditable.
 
-## Review Queue Talking Points
+## Puntos Para La Cola De Revisión
 
-- The review queue is the workforce value proposition.
-- Instead of asking specialists to reconcile entire spreadsheets manually, the system gives them the records that need judgment.
-- Simulated buttons show the intended future actions: validate, merge, or assign to a specialist.
+- La cola de revisión es la propuesta de valor para la fuerza laboral.
+- En lugar de pedir a especialistas reconciliar hojas completas manualmente, el sistema les entrega los registros que requieren criterio.
+- Los botones simulados muestran acciones futuras: validar, fusionar o asignar a especialista.
 
-## Traceability Talking Points
+## Puntos Para Trazabilidad
 
-- This answers the question "where did this claim come from?"
-- Every technical output should be able to link back to source file, row, source system, and citation when available.
-- This is the best defense against black-box AI concerns.
+- Esta vista responde: "¿de dónde salió esta afirmación?"
+- Cada salida técnica debe poder regresar a archivo fuente, fila, sistema de origen y cita cuando exista.
+- Es la mejor defensa frente a preocupaciones sobre IA de caja negra.
 
-## Synonyms Talking Points
+## Puntos Para Sinónimos
 
-- The pilot uses accepted names already present in sources.
-- The next version should connect to taxonomic authorities such as GBIF, WoRMS, CONABIO/SNIB, and group-specific criteria.
-- Original names should be preserved even when an accepted name is proposed.
+- El piloto usa nombres aceptados que ya vienen en las fuentes.
+- La siguiente versión debería conectarse a autoridades taxonómicas como GBIF, WoRMS, CONABIO/SNIB y criterios específicos por grupo.
+- Los nombres originales deben preservarse incluso cuando se proponga un nombre aceptado.
 
-## GIS Talking Points
+## Puntos Para GIS
 
-- Current records have coordinates and ANP labels.
-- The operational version needs official ANP polygons and agreed geographic validation rules.
-- Suggested statuses: inside, near boundary, outside, uncertain, no coordinates.
+- Los registros actuales tienen coordenadas y etiquetas de ANP.
+- La versión operativa necesita polígonos oficiales de ANP y reglas acordadas de validación geográfica.
+- Estados sugeridos: dentro, cerca del límite, fuera, incierto, sin coordenadas.
 
-## Automation Talking Points
+## Puntos Para Automatización
 
-- The purpose is not to automate final decisions.
-- The purpose is to automate ingestion, normalization, duplicate grouping, flagging, and draft preparation.
-- Every automation should produce a log and a review queue.
+- El propósito no es automatizar decisiones finales.
+- El propósito es automatizar ingesta, normalización, agrupación de duplicados, banderas de calidad y preparación de borradores.
+- Toda automatización debe producir bitácora y cola de revisión.
 
-## Pipeline Talking Points
+## Puntos Para Pipeline
 
-Use the value graph:
+Usar el gráfico de valor:
 
-1. CONANP folder enters.
-2. Ingestion classifies the contents.
-3. Database consolidates species, records, sources, and flags.
-4. Specialists review the uncertain parts.
-5. Outputs become dashboards, reports, GIS packages, and draft Program text.
+1. Entra la carpeta de CONANP.
+2. La ingesta clasifica el contenido.
+3. La base consolida especies, registros, fuentes y banderas.
+4. Especialistas revisan las partes inciertas.
+5. Las salidas se convierten en tableros, reportes, paquetes GIS y borradores de texto para Programa.
 
-## SVG Visual Aids
+## Apoyos Visuales SVG
 
-Open these directly during the call if useful:
+Abrir directamente durante la llamada si ayuda:
 
 - `assets/diagrams/database_dashboard_logistics.svg`
 - `assets/diagrams/database_architecture.svg`
 - `assets/diagrams/workflow_pipeline.svg`
 - `assets/diagrams/human_review_loop.svg`
 
-## Strong Defensible Phrases
+## Frases Fuertes Y Defendibles
 
-- "This is a review and traceability system, not an unsupervised decision system."
-- "The AI prepares and prioritizes; CONANP approves."
-- "We preserve the original record even when we propose a normalized value."
-- "The first value is reducing manual consolidation. The second value is making every output defensible."
-- "Uncertainty is not hidden. It is routed to the appropriate expert."
+- "Este es un sistema de revisión y trazabilidad, no un sistema de decisión automática."
+- "La IA prepara y prioriza; CONANP aprueba."
+- "Preservamos el registro original incluso cuando proponemos un valor normalizado."
+- "El primer valor es reducir consolidación manual. El segundo valor es hacer cada salida defendible."
+- "La incertidumbre no se oculta. Se canaliza al experto adecuado."
 
-## Questions To Ask CONANP
+## Preguntas Para Hacer A CONANP
 
-1. Which taxonomic authorities should be considered official by biological group?
-2. Can CONANP provide official ANP polygons and boundary rules?
-3. Who should approve taxonomy, geography, citations, and final Program text?
-4. Should the next pilot focus on all three ANPs or one deeper example?
-5. Does CONANP prefer Supabase, an internal database, or another approved hosting environment?
+1. ¿Qué autoridades taxonómicas deben considerarse oficiales por grupo biológico?
+2. ¿Puede CONANP proporcionar polígonos oficiales de ANP y reglas de límite?
+3. ¿Quién debe aprobar taxonomía, geografía, citas y texto final de Programa?
+4. ¿El siguiente piloto debe profundizar en las tres ANP o elegir una como ejemplo completo?
+5. ¿CONANP prefiere Supabase, una base interna u otro entorno de hospedaje aprobado?
 
-## Closing
+## Cierre
 
-"The dashboard is meant to show the operating model. If CONANP agrees with the model, the next step is to connect official polygons, taxonomic authorities, and a review workflow so the pilot can move from demonstration to an operational tool."
+"El tablero busca mostrar el modelo operativo. Si CONANP está de acuerdo con el modelo, el siguiente paso es conectar polígonos oficiales, autoridades taxonómicas y un flujo de revisión para pasar de demostración a herramienta operativa."
