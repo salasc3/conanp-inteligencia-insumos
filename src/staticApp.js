@@ -11,7 +11,7 @@ const SOURCE_COLORS = {
   Naturalista: "#c1792d",
 };
 
-const TAB_IDS = new Set(["dashboard", "species", "review", "traceability", "synonyms", "gis", "automation", "visuals", "draft", "pipeline", "sources"]);
+const TAB_IDS = new Set(["dashboard", "species", "review", "traceability", "synonyms", "gis", "automation", "visuals", "draft", "pipeline", "guide", "sources"]);
 const initialTab = new URLSearchParams(window.location.search).get("tab");
 
 const state = {
@@ -183,6 +183,7 @@ function render() {
     visuals: visualsView,
     draft: draftView,
     pipeline: pipelineView,
+    guide: guideView,
     sources: sourcesView,
   };
   app.innerHTML = views[state.tab]();
@@ -235,7 +236,7 @@ function bindViewEvents() {
   document.querySelectorAll("[data-ai-action]").forEach((button) => {
     button.addEventListener("click", (event) => {
       event.stopPropagation();
-      showToast(button.dataset.aiAction);
+      runAction(button);
     });
   });
 }
@@ -621,6 +622,56 @@ function pipelineView() {
     </section>`;
 }
 
+function guideView() {
+  const route = [
+    ["00:00", "Tablero", "Abrir con los tres numeros: registros normalizados, ocurrencias deduplicadas y taxa por ANP.", "dashboard"],
+    ["02:00", "ANP cards", "Cambiar de ANP y explicar que las cifras se recalculan por area protegida.", "dashboard"],
+    ["04:00", "Especies", "Buscar un taxon y abrir el drawer para explicar trazabilidad.", "species"],
+    ["07:00", "Revision", "Mostrar que la IA no decide sola: convierte incertidumbre en cola de especialistas.", "review"],
+    ["10:00", "Trazabilidad", "Seguir un taxon desde archivo original hasta decision humana.", "traceability"],
+    ["13:00", "Sinonimos", "Explicar como se preserva el nombre original y se propone nombre aceptado.", "synonyms"],
+    ["16:00", "GIS", "Mostrar la futura validacion contra poligonos oficiales y distribucion biogeografica.", "gis"],
+    ["19:00", "Automatizacion", "Explicar que el valor es liberar al equipo de limpieza manual repetitiva.", "automation"],
+    ["22:00", "Pipeline", "Cerrar con el grafico de valor: carpeta, ingesta, base, revision y salidas.", "pipeline"],
+  ];
+  return `
+    <section class="guide-screen">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Para una llamada de 25+ personas</p>
+          <h2>Guía de presentación</h2>
+        </div>
+        <button class="primary-action" data-ai-action="Modo presentador simulado: resalta el recorrido recomendado y registra preguntas para seguimiento.">Activar modo presentador</button>
+      </div>
+      <div class="guide-hero">
+        ${metric("Duración sugerida", "25 min")}
+        ${metric("Mensaje central", "Trazabilidad")}
+        ${metric("Decisión CONANP", "Siempre humana")}
+        ${metric("Siguiente paso", "Piloto operativo")}
+      </div>
+      <div class="guide-layout">
+        <div class="tour-lane">
+          ${route.map(tourStep).join("")}
+        </div>
+        <aside class="speaker-panel">
+          <span class="panel-kicker">Frase de apertura</span>
+          <p>Esto no es un reemplazo del criterio técnico de CONANP. Es una capa para consolidar, auditar y priorizar el trabajo experto usando los documentos y bases que ustedes ya producen.</p>
+          <span class="panel-kicker">Tres defensas clave</span>
+          ${ruleRow("No borra evidencia", "Deduplica en una capa representativa y conserva registros originales.", "Clave")}
+          ${ruleRow("No decide solo", "Taxonomía, geografía y texto final quedan sujetos a aprobación.", "Clave")}
+          ${ruleRow("Escala por ANP", "El mismo flujo puede procesar nuevas carpetas e insumos.", "Clave")}
+          <button class="inline-action" data-tab-link="pipeline">Abrir pipeline</button>
+        </aside>
+      </div>
+      <div class="diagram-links">
+        ${diagramLink("Logística base-dashboard", "assets/diagrams/database_dashboard_logistics.svg")}
+        ${diagramLink("Arquitectura de datos", "assets/diagrams/database_architecture.svg")}
+        ${diagramLink("Workflow operativo", "assets/diagrams/workflow_pipeline.svg")}
+        ${diagramLink("Revisión humana", "assets/diagrams/human_review_loop.svg")}
+      </div>
+    </section>`;
+}
+
 function sourcesView() {
   return `
     <section class="sources-screen">
@@ -722,6 +773,26 @@ function reviewCard(record) {
         <button data-ai-action="Derivación simulada. El caso quedaría asignado a un especialista taxonómico o regional.">Enviar a especialista</button>
       </div>
     </article>`;
+}
+
+function tourStep(step) {
+  return `
+    <article class="tour-step">
+      <strong>${escapeHtml(step[0])}</strong>
+      <div>
+        <h3>${escapeHtml(step[1])}</h3>
+        <p>${escapeHtml(step[2])}</p>
+      </div>
+      <button class="inline-action" data-tab-link="${escapeHtml(step[3])}">Abrir</button>
+    </article>`;
+}
+
+function diagramLink(title, path) {
+  return `
+    <a class="diagram-link" href="${escapeHtml(path)}" target="_blank" rel="noreferrer">
+      <span>${escapeHtml(title)}</span>
+      <strong>SVG externo</strong>
+    </a>`;
 }
 
 function moduleJump(title, detailText, tab) {
@@ -1063,7 +1134,7 @@ function showDrawer(species) {
     drawer.hidden = true;
   });
   drawer.querySelectorAll("[data-ai-action]").forEach((button) => {
-    button.addEventListener("click", () => showToast(button.dataset.aiAction));
+    button.addEventListener("click", () => runAction(button));
   });
 }
 
@@ -1135,8 +1206,28 @@ function escapeHtml(value = "") {
     .replaceAll("'", "&#039;");
 }
 
-function showToast(message) {
-  toast.textContent = message;
+function runAction(button) {
+  const message = button.dataset.aiAction;
+  button.classList.add("action-running");
+  button.disabled = true;
+  showToast(message, "Procesando acción simulada");
+  clearTimeout(button.actionTimeout);
+  button.actionTimeout = setTimeout(() => {
+    button.classList.remove("action-running");
+    button.classList.add("action-complete");
+    button.disabled = false;
+    showToast("Listo. La maqueta registró la acción, conservó trazabilidad y dejó una decisión pendiente para revisión humana.", "Resultado generado");
+    setTimeout(() => button.classList.remove("action-complete"), 1800);
+  }, 1350);
+}
+
+function showToast(message, title = "Acción simulada") {
+  toast.innerHTML = `
+    <strong class="toast-title">${escapeHtml(title)}</strong>
+    <span>${escapeHtml(message)}</span>
+    <div class="action-steps" aria-hidden="true">
+      <i></i><i></i><i></i>
+    </div>`;
   toast.hidden = false;
   clearTimeout(showToast.timeout);
   showToast.timeout = setTimeout(() => {

@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="820" viewBox="0 0 1400 820" role="img" aria-labelledby="title desc">
+  <title id="title">CONANP AI workflow pipeline</title>
+  <desc id="desc">A staged workflow pipeline from source intake through authority checks, GIS, literature ingestion, review, and Programa de Manejo drafting.</desc>
+  <defs>
+    <style>
+      .bg{fill:#f6f7f8}.lane{fill:#fff;stroke:#d9dee3;stroke-width:2;rx:16}.done{stroke:#0b6b55}.draft{stroke:#b9852f}.future{stroke:#245e91}.text{font-family:Avenir Next,Segoe UI,sans-serif;fill:#17201d}.title{font-family:Georgia,serif;font-size:34px;font-weight:700}.h{font-size:19px;font-weight:800}.p{font-size:14px;fill:#66706d}.num{font-family:Georgia,serif;font-size:34px;fill:#0b6b55}.arrow{stroke:#66706d;stroke-width:3;fill:none;marker-end:url(#arrow)}
+    </style>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M2,2 L10,6 L2,10 Z" fill="#66706d"/></marker>
+  </defs>
+  <rect class="bg" width="1400" height="820"/>
+  <text class="text title" x="70" y="76">Operational workflow pipeline</text>
+  <text class="text p" x="70" y="108">The system automates preparation and routes scientific decisions to CONANP specialists.</text>
+
+  <rect class="lane done" x="80" y="160" width="250" height="180"/>
+  <text class="num" x="105" y="210">01</text>
+  <text class="text h" x="105" y="248">Receive folder</text>
+  <text class="text p" x="105" y="280">Identify decrees, EPJ, GIS,</text>
+  <text class="text p" x="105" y="304">economy/demography and</text>
+  <text class="text p" x="105" y="328">biodiversity databases.</text>
+
+  <rect class="lane done" x="410" y="160" width="250" height="180"/>
+  <text class="num" x="435" y="210">02</text>
+  <text class="text h" x="435" y="248">Normalize data</text>
+  <text class="text p" x="435" y="280">Translate heterogeneous</text>
+  <text class="text p" x="435" y="304">source schemas into one</text>
+  <text class="text p" x="435" y="328">occurrence model.</text>
+
+  <rect class="lane done" x="740" y="160" width="250" height="180"/>
+  <text class="num" x="765" y="210">03</text>
+  <text class="text h" x="765" y="248">Group duplicates</text>
+  <text class="text p" x="765" y="280">Build representative</text>
+  <text class="text p" x="765" y="304">occurrences while keeping</text>
+  <text class="text p" x="765" y="328">raw traceability.</text>
+
+  <rect class="lane draft" x="1070" y="160" width="250" height="180"/>
+  <text class="num" x="1095" y="210">04</text>
+  <text class="text h" x="1095" y="248">Authority checks</text>
+  <text class="text p" x="1095" y="280">Compare names against</text>
+  <text class="text p" x="1095" y="304">GBIF, WoRMS, CONABIO</text>
+  <text class="text p" x="1095" y="328">and specialist criteria.</text>
+
+  <rect class="lane draft" x="245" y="460" width="250" height="180"/>
+  <text class="num" x="270" y="510">05</text>
+  <text class="text h" x="270" y="548">GIS validation</text>
+  <text class="text p" x="270" y="580">Cross records against</text>
+  <text class="text p" x="270" y="604">official polygons and</text>
+  <text class="text p" x="270" y="628">biogeographic ranges.</text>
+
+  <rect class="lane future" x="575" y="460" width="250" height="180"/>
+  <text class="num" x="600" y="510">06</text>
+  <text class="text h" x="600" y="548">Literature ingestion</text>
+  <text class="text p" x="600" y="580">Search papers, screen,</text>
+  <text class="text p" x="600" y="604">extract taxa and attach</text>
+  <text class="text p" x="600" y="628">publication evidence.</text>
+
+  <rect class="lane future" x="905" y="460" width="250" height="180"/>
+  <text class="num" x="930" y="510">07</text>
+  <text class="text h" x="930" y="548">Generate outputs</text>
+  <text class="text p" x="930" y="580">Review reports, species</text>
+  <text class="text p" x="930" y="604">database, dashboard and</text>
+  <text class="text p" x="930" y="628">draft PM sections.</text>
+
+  <path class="arrow" d="M330 250 H400"/>
+  <path class="arrow" d="M660 250 H730"/>
+  <path class="arrow" d="M990 250 H1060"/>
+  <path class="arrow" d="M1195 340 C1195 420 370 385 370 450"/>
+  <path class="arrow" d="M495 550 H565"/>
+  <path class="arrow" d="M825 550 H895"/>
+
+  <rect x="80" y="700" width="1240" height="54" rx="14" fill="#18221f"/>
+  <text x="110" y="735" fill="#fff" font-family="Avenir Next,Segoe UI,sans-serif" font-size="18" font-weight="800">Principle:</text>
+  <text x="205" y="735" fill="#dce5de" font-family="Avenir Next,Segoe UI,sans-serif" font-size="18">AI accelerates preparation; CONANP approves scientific, geographic, legal and final drafting decisions.</text>
+</svg>

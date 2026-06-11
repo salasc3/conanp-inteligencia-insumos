@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="820" viewBox="0 0 1400 820" role="img" aria-labelledby="title desc">
+  <title id="title">CONANP human review loop</title>
+  <desc id="desc">A loop diagram showing AI triage, specialist review, approval, audit logging, and feedback into rules.</desc>
+  <defs>
+    <style>
+      .bg{fill:#f6f7f8}.node{fill:#fff;stroke:#d9dee3;stroke-width:2;rx:16}.ai{stroke:#245e91;stroke-width:4}.human{stroke:#0b6b55;stroke-width:4}.risk{stroke:#bb4d35;stroke-width:4}.text{font-family:Avenir Next,Segoe UI,sans-serif;fill:#17201d}.title{font-family:Georgia,serif;font-size:34px;font-weight:700}.h{font-size:20px;font-weight:800}.p{font-size:15px;fill:#66706d}.arrow{stroke:#66706d;stroke-width:3;fill:none;marker-end:url(#arrow)}
+    </style>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M2,2 L10,6 L2,10 Z" fill="#66706d"/></marker>
+  </defs>
+  <rect class="bg" width="1400" height="820"/>
+  <text class="text title" x="70" y="76">Human-in-the-loop review model</text>
+  <text class="text p" x="70" y="108">The dashboard is designed to make expert decisions faster, clearer and auditable.</text>
+
+  <rect class="node ai" x="560" y="150" width="280" height="145"/>
+  <text class="text h" x="590" y="195">AI triage</text>
+  <text class="text p" x="590" y="226">Flags duplicates, missing taxa,</text>
+  <text class="text p" x="590" y="250">authority conflicts and GIS</text>
+  <text class="text p" x="590" y="274">uncertainty.</text>
+
+  <rect class="node human" x="930" y="330" width="300" height="145"/>
+  <text class="text h" x="960" y="375">Specialist review</text>
+  <text class="text p" x="960" y="406">Taxonomy, geography, citations</text>
+  <text class="text p" x="960" y="430">and Program criteria reviewed</text>
+  <text class="text p" x="960" y="454">by CONANP roles.</text>
+
+  <rect class="node human" x="560" y="540" width="280" height="145"/>
+  <text class="text h" x="590" y="585">Approved evidence</text>
+  <text class="text p" x="590" y="616">Validated species records,</text>
+  <text class="text p" x="590" y="640">accepted names, GIS status</text>
+  <text class="text p" x="590" y="664">and source-linked claims.</text>
+
+  <rect class="node risk" x="170" y="330" width="300" height="145"/>
+  <text class="text h" x="200" y="375">Audit log</text>
+  <text class="text p" x="200" y="406">Who decided, when, why,</text>
+  <text class="text p" x="200" y="430">what source supported it,</text>
+  <text class="text p" x="200" y="454">and what changed.</text>
+
+  <circle cx="700" cy="408" r="72" fill="#18221f"/>
+  <text x="700" y="397" fill="#fff" text-anchor="middle" font-family="Georgia,serif" font-size="24" font-weight="700">CONANP</text>
+  <text x="700" y="430" fill="#dce5de" text-anchor="middle" font-family="Avenir Next,Segoe UI,sans-serif" font-size="16">controls final decisions</text>
+
+  <path class="arrow" d="M840 225 C990 235 1080 270 1080 320"/>
+  <path class="arrow" d="M1080 475 C1040 570 940 610 850 612"/>
+  <path class="arrow" d="M560 612 C420 600 320 535 320 485"/>
+  <path class="arrow" d="M320 330 C330 215 445 180 550 222"/>
+
+  <rect x="110" y="730" width="1180" height="48" rx="12" fill="#ffffff" stroke="#d9dee3" stroke-width="2"/>
+  <text class="text p" x="140" y="760">Result: fewer hours spent reconciling spreadsheets, more time spent on technical judgment and defensible institutional decisions.</text>
+</svg>

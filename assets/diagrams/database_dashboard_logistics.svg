@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="820" viewBox="0 0 1400 820" role="img" aria-labelledby="title desc">
+  <title id="title">CONANP logistics from source folder to dashboard</title>
+  <desc id="desc">A flow diagram showing how CONANP files move through ingestion, normalization, database, dashboard, review, and outputs.</desc>
+  <defs>
+    <style>
+      .bg{fill:#f6f7f8}.card{fill:#fff;stroke:#d9dee3;stroke-width:2;rx:16}.dark{fill:#18221f}.green{fill:#0b6b55}.blue{fill:#245e91}.ochre{fill:#b9852f}.rust{fill:#bb4d35}.text{font-family:Avenir Next,Segoe UI,sans-serif;fill:#17201d}.muted{fill:#66706d}.title{font-family:Georgia,serif;font-size:34px;font-weight:700}.h{font-size:20px;font-weight:800}.p{font-size:15px}.small{font-size:13px}.arrow{stroke:#66706d;stroke-width:3;fill:none;marker-end:url(#arrow)}
+    </style>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#66706d"/>
+    </marker>
+  </defs>
+  <rect class="bg" width="1400" height="820"/>
+  <text class="text title" x="70" y="78">CONANP pilot logistics: folder to operating dashboard</text>
+  <text class="text muted p" x="70" y="108">The dashboard is not a black box. Each output is tied back to documents, spreadsheets, row numbers, source systems, and review status.</text>
+
+  <rect class="card" x="70" y="170" width="240" height="170"/>
+  <rect class="green" x="90" y="190" width="56" height="56" rx="12"/>
+  <text class="text h" x="90" y="278">CONANP folder</text>
+  <text class="text muted p" x="90" y="305">Decretos, EPJ, SIG,</text>
+  <text class="text muted p" x="90" y="327">economia/demografia,</text>
+  <text class="text muted p" x="90" y="349">GBIF, SNIB, OBIS, Naturalista</text>
+
+  <rect class="card" x="390" y="170" width="240" height="170"/>
+  <rect class="blue" x="410" y="190" width="56" height="56" rx="12"/>
+  <text class="text h" x="410" y="278">Ingestion layer</text>
+  <text class="text muted p" x="410" y="305">Detect file role, source</text>
+  <text class="text muted p" x="410" y="327">system, schema, and</text>
+  <text class="text muted p" x="410" y="349">traceability fields</text>
+
+  <rect class="card" x="710" y="170" width="240" height="170"/>
+  <rect class="ochre" x="730" y="190" width="56" height="56" rx="12"/>
+  <text class="text h" x="730" y="278">Normalization</text>
+  <text class="text muted p" x="730" y="305">One shared occurrence</text>
+  <text class="text muted p" x="730" y="327">model across different</text>
+  <text class="text muted p" x="730" y="349">databases and authorities</text>
+
+  <rect class="card" x="1030" y="170" width="240" height="170"/>
+  <rect class="rust" x="1050" y="190" width="56" height="56" rx="12"/>
+  <text class="text h" x="1050" y="278">Pilot database</text>
+  <text class="text muted p" x="1050" y="305">Species index, source</text>
+  <text class="text muted p" x="1050" y="327">inventory, quality flags,</text>
+  <text class="text muted p" x="1050" y="349">deduplicated layer</text>
+
+  <path class="arrow" d="M310 255 H380"/>
+  <path class="arrow" d="M630 255 H700"/>
+  <path class="arrow" d="M950 255 H1020"/>
+
+  <rect class="card" x="210" y="470" width="280" height="190"/>
+  <text class="text h" x="235" y="515">Dashboard</text>
+  <text class="text muted p" x="235" y="546">Metrics, ANP cards, species</text>
+  <text class="text muted p" x="235" y="570">explorer, traceability drawer,</text>
+  <text class="text muted p" x="235" y="594">feature modules, visual aids</text>
+  <text class="text small" x="235" y="634">Current: local JSON export</text>
+
+  <rect class="card" x="560" y="470" width="280" height="190"/>
+  <text class="text h" x="585" y="515">Human review queue</text>
+  <text class="text muted p" x="585" y="546">Taxonomic conflicts, possible</text>
+  <text class="text muted p" x="585" y="570">duplicates, GIS uncertainty,</text>
+  <text class="text muted p" x="585" y="594">source/citation gaps</text>
+  <text class="text small" x="585" y="634">CONANP keeps final decision</text>
+
+  <rect class="card" x="910" y="470" width="280" height="190"/>
+  <text class="text h" x="935" y="515">Operational outputs</text>
+  <text class="text muted p" x="935" y="546">Clean species DB, reports,</text>
+  <text class="text muted p" x="935" y="570">GIS validation package,</text>
+  <text class="text muted p" x="935" y="594">draft Programa sections</text>
+  <text class="text small" x="935" y="634">Always source-linked</text>
+
+  <path class="arrow" d="M1150 340 C1150 420 350 390 350 460"/>
+  <path class="arrow" d="M490 565 H550"/>
+  <path class="arrow" d="M840 565 H900"/>
+  <path class="arrow" d="M700 470 C700 390 1150 430 1150 350"/>
+
+  <rect class="dark" x="70" y="720" width="1260" height="52" rx="12"/>
+  <text fill="#fff" font-family="Avenir Next,Segoe UI,sans-serif" font-size="18" font-weight="800" x="95" y="753">Value add:</text>
+  <text fill="#dce5de" font-family="Avenir Next,Segoe UI,sans-serif" font-size="18" x="190" y="753">manual consolidation becomes a traceable evidence system with reviewable AI assistance.</text>
+</svg>

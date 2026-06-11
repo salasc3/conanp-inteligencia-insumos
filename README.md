@@ -73,3 +73,14 @@ Then show:
 ## Call Prep
 
 Use `docs/CONANP_call_briefing_2026-06-11.md` for likely questions, defensible answers, and the system/value explanation for CONANP.
+
+Use `docs/dashboard_facilitation_guide.md` as the step-by-step screen-share route for a 25+ person call.
+
+## Standalone SVG Diagrams
+
+These are standalone files, not embedded Markdown diagrams, so they can be opened directly or dropped into slides:
+
+- `assets/diagrams/database_dashboard_logistics.svg`
+- `assets/diagrams/database_architecture.svg`
+- `assets/diagrams/workflow_pipeline.svg`
+- `assets/diagrams/human_review_loop.svg`
